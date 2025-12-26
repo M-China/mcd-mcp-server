@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://open.mcd.cn/mcp" target="_blank">
-    <img src="https://img.mcd.cn/gallery/4079c856e72ed711.png" align="middle" width = "1000" />
+    <img src="https://img.mcd.cn/gallery/3fa1addc20b6d2d8.jpeg" align="middle" width = "1000" />
   </a>
 </p>
 
@@ -11,11 +11,11 @@
 ## 麦当劳开放平台网址：[麦当劳开放平台](https://open.mcd.cn/mcp)
 
 - 第一步：点击右上角【登录】按钮
-  <div class="img"><img src="https://img.mcd.cn/gallery/710fd62e53df2584.png" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/91178777592c9118.jpeg" alt="" width="1000" /></div>
 - 第二步：跳转到登录页使用手机号验证登录
   <div class="img"><img src="https://img.mcd.cn/gallery/c7b5d9e9cdd2c786.png" alt="" width="1000" /></div>
   登录成功后跳转回首页，“登录”按钮变成控制台
-  <div class="img"><img src="https://img.mcd.cn/gallery/e25673658ac256f0.png" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/a854347bb1339ee1.jpeg" alt="" width="1000" /></div>
 - 第三步：申请 MCP Token\
   点击右上角“控制台”后，会弹出控制台弹窗\
   点击激活按钮，申请MCP Token
