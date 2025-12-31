@@ -353,5 +353,5 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 - 请妥善保管您的MCP Token，避免泄露或被他人使用。
 
-**© 2025 McDonald’s. All Rights Reserved.**
+<p align="center">© 2025 McDonald’s. All Rights Reserved.</p>
 
