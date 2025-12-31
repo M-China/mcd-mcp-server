@@ -347,4 +347,4 @@ Example:
 
 - Please keep your MCP Token secure and avoid disclosure or unauthorized use by others.
 
-**© 2025 McDonald’s. All Rights Reserved.**
+<p align="center">© 2025 McDonald’s. All Rights Reserved.</p>
