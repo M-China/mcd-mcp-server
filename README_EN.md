@@ -326,3 +326,25 @@ Example:
 |    Date    | Version | Description           |
 |:----------:|:-------:|-----------------------|
 | 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server |
+
+---
+
+# 6. Important Notes
+
+- Individual users are permitted to copy and use the sample configurations, parameters, JSON, or example code in this repository for non-commercial purposes only, and solely for establishing connection with and using the McDonald's China MCP Server.
+
+- Use of the McDonald's China MCP Server must comply with McDonald's China's Terms of Use and McDonald's MCP Service Rules, which must be agreed to when applying for an MCP Token.
+
+- Without written authorization, the content of this repository may not be used for:
+	- Commercial sale or paid distribution
+	- Traffic monetization or revenue generation
+	- Any purpose implying official endorsement or misleading the public
+	- Any illegal, unauthorized, or gray/black market activities
+
+- The content of this repository is provided "as is" without any form of warranty or commitment.
+
+- This repository does not constitute authorization to use McDonald's or its affiliates' trademarks.
+
+- Please keep your MCP Token secure and avoid disclosure or unauthorized use by others.
+
+**© 2025 McDonald’s. All Rights Reserved.**
