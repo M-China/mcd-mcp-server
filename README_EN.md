@@ -2,7 +2,7 @@
 **What is McDonald's China MCP Server?**
 
 - McDonald's China MCP Server is a data interaction interface service that complies with the Model Context Protocol (MCP) standard, provided by McDonald's China for use in mainland China (excluding Hong Kong, Macau, and Taiwan).
-- McDonald's China MCP Server now covers five core business interfaces, providing developers with integration support for McDonald's brand information and member account benefits. Currently supported functions include activity calendar queries, "MaiMaiSheng" coupon queries and claiming. More practical tools are under continuous development and will be launched soon. Stay tuned.
+- McDonald's China MCP Server now covers four core business interfaces, providing developers with integration support for McDonald's brand information and member account benefits. Currently supported functions include activity calendar queries, "MaiMaiSheng" coupon queries and claiming. More practical tools are under continuous development and will be launched soon. Stay tuned.
 
 # 1. Apply for MCP Token
 
