@@ -152,7 +152,7 @@ As of December 9, 2025
 |   Qwen   | qwen-plus<br>qwen3-max |
 |  Doubao  |    Doubao-Seed-1.6     |
 |   Kimi   |           k2           |
-|  Zhipu   |        GLM-4.6         |
+|  Zhipu   |        GLM-4.7         |
 |  Gemini  |  gemini-3-pro-preview  |
 | Deepseek |     DeepSeek-V3.2      |
 
