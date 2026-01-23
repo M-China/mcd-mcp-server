@@ -162,7 +162,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 |   Qwen   | qwen-plus<br>qwen3-max |
 |  Doubao  |    Doubao-Seed-1.6     |
 |   Kimi   |           k2           |
-|  Zhipu   |        GLM-4.6         |
+|  Zhipu   |        GLM-4.7         |
 |  Gemini  |  gemini-3-pro-preview  |
 | Deepseek |     DeepSeek-V3.2      |
 
@@ -178,8 +178,8 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | available-coupons | 麦麦省券列表查询 |                   查询用户当前可领取的麦麦省的优惠券列表                    |
 | auto-bind-coupons | 麦麦省一键领券  | 自动领取麦麦省所有当前可用的麦当劳优惠券。无需指定具体的优惠券和couponId，系统会自动领取用户可领的所有券 |
 |    my-coupons     | 我的优惠券查询  |   查询我有哪些可用的优惠券。就像打开麦当劳APP的"我的优惠券"页面，能看到所有可以用来点餐的优惠券列表    |
-| list-nutrition-foods | 餐品营养信息列表 | 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐时有用 |
 |   now-time-info   | 获取当前时间信息 |              返回当前的完整时间信息，以便于 LLM 知道当前的时间和日期              |
+| list-nutrition-foods | 餐品营养信息列表 | 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐时有用 |
 
 
 ### 4.1.1 活动日历查询工具
@@ -355,5 +355,5 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 - 请妥善保管您的MCP Token，避免泄露或被他人使用。
 
-<p align="center">© 2025 McDonald’s. All Rights Reserved.</p>
+<p align="center">© 2026 McDonald’s. All Rights Reserved.</p>
 
