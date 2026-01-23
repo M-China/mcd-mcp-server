@@ -29,7 +29,7 @@
 
 
 ## 2.1 Access Address
-> Server Access URL: https://mcp.mcd.cn/mcp-servers/mcd-mcp
+> Server Access URL: https://mcp.mcd.cn
 
 ## 2.2 Protocol and Security
 > Connect using the **Streamable HTTP** protocol.\
@@ -46,7 +46,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
   "mcpServers": {
     "mcd-mcp": {
       "type": "streamablehttp",
-      "url": "https://mcp.mcd.cn/mcp-servers/mcd-mcp",
+      "url": "https://mcp.mcd.cn",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"
       }
@@ -147,7 +147,7 @@ You can now directly input requests in the dialog and let the AI call the tools 
 
 As of December 9, 2025
 
-|    Vendor    |           Model           |
+|  Vendor  |         Model          |
 |:--------:|:----------------------:|
 |   Qwen   | qwen-plus<br>qwen3-max |
 |  Doubao  |    Doubao-Seed-1.6     |
@@ -162,13 +162,13 @@ As of December 9, 2025
 
 ## 4.1 Tool List
 
-|     **Tool**      | **Name** |                     **Description**                      |
-|:-----------------:|:--------:|:--------------------------------------------------------:|
-| campaign-calender | Campaign Calendar Query Tool | Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities. |
-| available-coupons | "MaiMaiSheng" Coupon List Query | Queries the list of "MaiMaiSheng" coupons currently available for the user to claim. |
-| auto-bind-coupons | One-Click Coupon Claiming | Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for. |
-|    my-coupons     | My Coupons Query | Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering. |
-|   now-time-info   | Get Current Time Info | Returns complete current time information, allowing the LLM to know the current date and time. |
+|       **Tool**       |            **Name**             |                                                                                                                                                              **Description**                                                                                                                                                              |
+|:--------------------:|:-------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|  campaign-calender   |  Campaign Calendar Query Tool   |                                                                                                                Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities.                                                                                                                |
+|  available-coupons   | "MaiMaiSheng" Coupon List Query |                                                                                                                           Queries the list of "MaiMaiSheng" coupons currently available for the user to claim.                                                                                                                            |
+|  auto-bind-coupons   |    One-Click Coupon Claiming    |                                                                       Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for.                                                                       |
+|      my-coupons      |        My Coupons Query         |                                                                                     Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering.                                                                                     |
+|    now-time-info     |      Get Current Time Info      |                                                                                                                      Returns complete current time information, allowing the LLM to know the current date and time.                                                                                                                       |
 | list-nutrition-foods | Food Nutrition Information List | Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content. |
 
 
@@ -179,8 +179,8 @@ As of December 9, 2025
 
 **Input Parameters:**
 
-|     name      |                              description                               |
-|:-------------:|:----------------------------------------------------------------------:|
+|     name      |                                                                                                           description                                                                                                            |
+|:-------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | specifiedDate | Query activities for a specific date range (Format: yyyy-MM-dd). Returns activities for three days surrounding that date. Optional; defaults to the current month's activities. No parameter needed to query today's activities. |
 
 **Response Content:**
@@ -322,12 +322,32 @@ Example:
 }
 ```
 
+### 4.1.6 Food Nutrition Information List
+**Description**:
+> Retrieves nutritional component data for McDonald's China regular menu items, including energy, protein, fat, carbohydrates, sodium, calcium and other related information. It assists users in creating **calorie-customized meal combinations** when they inquire about the calorie and nutritional details of McDonald's menu items.
+
+**Input Parameters**:
+> No input parameters required
+
+**Response Content**:
+
+Example:
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-01-23 09:32:44",
+    "data": "[1]{productName,nutritionDescription,energyKj,energyKcal,protein,fat,carbohydrate,sodium,calcium}:\n  Sausage McMuffin,null,1288,308,16,16,24,781,213\n "
+}
+```
+
 # 5. Version Log
 
-|    Date    | Version | Description           |
-|:----------:|:-------:|-----------------------|
-| 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server |
-| 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool |
+|    Date    | Version | Description                                                                                              |
+|:----------:|:-------:|----------------------------------------------------------------------------------------------------------|
+| 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server                                                        |
+| 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool, we shortened the URL for easier access and integration |
 
 ---
 

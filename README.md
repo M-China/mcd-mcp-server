@@ -39,7 +39,7 @@
 
 
 ## 2.1 接入地址
-> 服务器接入地址：https://mcp.mcd.cn/mcp-servers/mcd-mcp
+> 服务器接入地址：https://mcp.mcd.cn
 
 ## 2.2 传输协议与安全
 > 使用 **Streamable HTTP** 协议接入\
@@ -56,7 +56,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
   "mcpServers": {
     "mcd-mcp": {
       "type": "streamablehttp",
-      "url": "https://mcp.mcd.cn/mcp-servers/mcd-mcp",
+      "url": "https://mcp.mcd.cn",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"
       }
@@ -172,13 +172,13 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 ## 4.1 工具列表
 
-|     **Tool**      | **Name** |                     **Description**                      |
-|:-----------------:|:--------:|:--------------------------------------------------------:|
-| campaign-calender | 活动日历查询工具 |            查询麦当劳中国当月的营销活动日历，返回进行中、往期和未来日期的活动             |
-| available-coupons | 麦麦省券列表查询 |                   查询用户当前可领取的麦麦省的优惠券列表                    |
-| auto-bind-coupons | 麦麦省一键领券  | 自动领取麦麦省所有当前可用的麦当劳优惠券。无需指定具体的优惠券和couponId，系统会自动领取用户可领的所有券 |
-|    my-coupons     | 我的优惠券查询  |   查询我有哪些可用的优惠券。就像打开麦当劳APP的"我的优惠券"页面，能看到所有可以用来点餐的优惠券列表    |
-|   now-time-info   | 获取当前时间信息 |              返回当前的完整时间信息，以便于 LLM 知道当前的时间和日期              |
+|       **Tool**       | **Name** |                              **Description**                               |
+|:--------------------:|:--------:|:--------------------------------------------------------------------------:|
+|  campaign-calender   | 活动日历查询工具 |                     查询麦当劳中国当月的营销活动日历，返回进行中、往期和未来日期的活动                      |
+|  available-coupons   | 麦麦省券列表查询 |                            查询用户当前可领取的麦麦省的优惠券列表                             |
+|  auto-bind-coupons   | 麦麦省一键领券  |          自动领取麦麦省所有当前可用的麦当劳优惠券。无需指定具体的优惠券和couponId，系统会自动领取用户可领的所有券          |
+|      my-coupons      | 我的优惠券查询  |            查询我有哪些可用的优惠券。就像打开麦当劳APP的"我的优惠券"页面，能看到所有可以用来点餐的优惠券列表             |
+|    now-time-info     | 获取当前时间信息 |                       返回当前的完整时间信息，以便于 LLM 知道当前的时间和日期                       |
 | list-nutrition-foods | 餐品营养信息列表 | 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐时有用 |
 
 
@@ -332,12 +332,32 @@ Authorization: Bearer YOUR_MCP_TOKEN
 }
 ```
 
+### 4.1.6 餐品营养信息列表
+**描述：**
+> 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐
+
+**入参：**
+> 无需入参
+
+**响应内容：**
+
+示例：
+``` json
+{
+    "success": true,
+    "code": 200,
+    "message": "请求成功",
+    "datetime": "2026-01-23 09:32:44",
+    "data": "[1]{productName,nutritionDescription,energyKj,energyKcal,protein,fat,carbohydrate,sodium,calcium}:\n  猪柳麦满分,null,1288,308,16,16,24,781,213\n "
+}
+```
+
 # 5. 版本日志
 
-|    Date    | Version | Description           |
-|:----------:|:-------:|-----------------------|
-| 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server |
-| 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool |
+|    Date    | Version | Description                         |
+|:----------:|:-------:|-------------------------------------|
+| 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server               |
+| 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool，同时我们缩短了URL以便于大家连接 |
 
 ---
 
