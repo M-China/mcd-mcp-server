@@ -83,7 +83,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 <div class="img"><img src="https://img.mcd.cn/gallery/662175d6e573bb31.png" alt="" width="1000" /></div>
 
-从上面粘贴 JSON复制进去， **一定记得替换 “YOUR_MCP_TOKEN”**，然后点击“确定”按钮
+从上面复制JSON粘贴进去，**一定记得替换 “YOUR_MCP_TOKEN”**，然后点击“确定”按钮
 
 <div class="img"><img src="https://img.mcd.cn/gallery/932b5bea7c9a79eb.png" alt="" width="1000" /></div>
 
@@ -178,6 +178,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | available-coupons | 麦麦省券列表查询 |                   查询用户当前可领取的麦麦省的优惠券列表                    |
 | auto-bind-coupons | 麦麦省一键领券  | 自动领取麦麦省所有当前可用的麦当劳优惠券。无需指定具体的优惠券和couponId，系统会自动领取用户可领的所有券 |
 |    my-coupons     | 我的优惠券查询  |   查询我有哪些可用的优惠券。就像打开麦当劳APP的"我的优惠券"页面，能看到所有可以用来点餐的优惠券列表    |
+| list-nutrition-foods | 餐品营养信息列表 | 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐时有用 |
 |   now-time-info   | 获取当前时间信息 |              返回当前的完整时间信息，以便于 LLM 知道当前的时间和日期              |
 
 
@@ -336,6 +337,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 |    Date    | Version | Description           |
 |:----------:|:-------:|-----------------------|
 | 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server |
+| 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool |
 
 ---
 
