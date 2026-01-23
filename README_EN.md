@@ -169,6 +169,7 @@ As of December 9, 2025
 | auto-bind-coupons | One-Click Coupon Claiming | Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for. |
 |    my-coupons     | My Coupons Query | Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering. |
 |   now-time-info   | Get Current Time Info | Returns complete current time information, allowing the LLM to know the current date and time. |
+| list-nutrition-foods | Food Nutrition Information List | Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content. |
 
 
 ### 4.1.1 Campaign Calendar Query Tool
@@ -326,6 +327,7 @@ Example:
 |    Date    | Version | Description           |
 |:----------:|:-------:|-----------------------|
 | 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server |
+| 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool |
 
 ---
 
@@ -347,4 +349,4 @@ Example:
 
 - Please keep your MCP Token secure and avoid disclosure or unauthorized use by others.
 
-<p align="center">© 2025 McDonald’s. All Rights Reserved.</p>
+<p align="center">© 2026 McDonald’s. All Rights Reserved.</p>
