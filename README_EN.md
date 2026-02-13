@@ -1,8 +1,22 @@
+<p align="center">
+  <a href="https://open.mcd.cn/mcp" target="_blank">
+    <img src="https://img.mcd.cn/gallery/3fa1addc20b6d2d8.jpeg" align="middle" width = "1000" />
+  </a>
+</p>
+
+<p align="center">
+	<a href="README.md">简体中文</a> | English
+</p>
+
 # Introduction
 **What is McDonald's China MCP Server?**
-
 - McDonald's China MCP Server is a data interaction interface service that complies with the Model Context Protocol (MCP) standard, provided by McDonald's China for use in mainland China (excluding Hong Kong, Macau, and Taiwan).
-- McDonald's China MCP Server now covers four core business interfaces, providing developers with integration support for McDonald's brand information and member account benefits. Currently supported functions include activity calendar queries, "MaiMaiSheng" coupon queries and claiming. More practical tools are under continuous development and will be launched soon. Stay tuned.
+- McDonald's China MCP Server now covers five core business interfaces, providing developers with integration support for McDonald's brand information and member account benefits. Currently supported functions include McDelivery ordering, points redemption vouchers, activity calendar queries, and "MaiMaiSheng" coupon queries and claiming. More practical tools are under continuous development and will be launched soon. Stay tuned.
+
+# News
+- **[2026-02] `Feature`:** We have added "McDelivery Ordering" and "Points Redemption Vouchers" feature modules, supporting complete food delivery and points redemption services. [View Tool Details](#4-tools)
+- **[2026-01] `Feature`:** We have added the "Food Nutrition Information List" tool, allowing users to query nutritional data for common McDonald's menu items, including calories and nutrition information. [View Tool Details](#4-tools)
+- **[2025-12] `Release`:** We released McDonald's MCP Server version 1.0.0, providing activity calendar queries and MaiMaiSheng coupon claiming features. Try it now! See the [Quick Start](#2-quick-start) section below for integration tutorials.
 
 # 1. Apply for MCP Token
 
@@ -145,15 +159,15 @@ You can now directly input requests in the dialog and let the AI call the tools 
 
 ## 3.2 Recommended LLMs
 
-As of December 9, 2025
+As of February 12, 2026
 
 |  Vendor  |         Model          |
 |:--------:|:----------------------:|
 |   Qwen   | qwen-plus<br>qwen3-max |
 |  Doubao  |    Doubao-Seed-1.6     |
-|   Kimi   |           k2           |
-|  Zhipu   |        GLM-4.7         |
-|  Gemini  |  gemini-3-pro-preview  |
+|   Kimi   |          k2.5          |
+|  Zhipu   |         GLM-5          |
+|  Gemini  | gemini-3-flash-preview |
 | Deepseek |     DeepSeek-V3.2      |
 
 
@@ -162,56 +176,34 @@ As of December 9, 2025
 
 ## 4.1 Tool List
 
-|       **Tool**       |            **Name**             |                                                                                                                                                              **Description**                                                                                                                                                              |
-|:--------------------:|:-------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|  campaign-calender   |  Campaign Calendar Query Tool   |                                                                                                                Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities.                                                                                                                |
-|  available-coupons   | "MaiMaiSheng" Coupon List Query |                                                                                                                           Queries the list of "MaiMaiSheng" coupons currently available for the user to claim.                                                                                                                            |
-|  auto-bind-coupons   |    One-Click Coupon Claiming    |                                                                       Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for.                                                                       |
-|      my-coupons      |        My Coupons Query         |                                                                                     Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering.                                                                                     |
-|    now-time-info     |      Get Current Time Info      |                                                                                                                      Returns complete current time information, allowing the LLM to know the current date and time.                                                                                                                       |
-| list-nutrition-foods | Food Nutrition Information List | Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content. |
+|         **Tool**         |             **Name**              |                                                                                                                                                              **Description**                                                                                                                                                              |
+|:------------------------:|:---------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|   list-nutrition-foods   |  Food Nutrition Information List  | Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content. |
+| delivery-query-addresses |  Get User Delivery Address List   |                                                                           Queries the user's created delivery address list, used for selecting delivery addresses when ordering food delivery, and obtains corresponding store information (storeCode, beCode).                                                                           |
+| delivery-create-address  |       Add Delivery Address        |                                                                                                          Used when the user has no delivery address or needs to add a new delivery address, for creating a new delivery address.                                                                                                          |
+|   query-usable-coupons   | Query Available Coupons at Store  |                                                                                                              Queries the list of coupons available at the current store, used for selecting available coupons when ordering.                                                                                                              |
+|       query-meals        |       Query Store Menu List       |                                                                                                   Queries the menu of meals available at the current store (categories, meal codes, tags, etc.), used for meal selection when ordering.                                                                                                   |
+|       meal-detail        |        Query Meal Details         |                                                                                                          Queries meal details based on meal code (combo composition, default selections, etc.), used for viewing combo contents.                                                                                                          |
+|     calculate-price      |       Calculate Item Price        |                                                                                                    Calculates item amount, delivery fee, discount amount, and total payable based on user's selected item list (may include coupons).                                                                                                     |
+|       create-order       |       Create Delivery Order       |                                                                                                       Creates a delivery order based on store information, delivery address, and item list, returns order details and payment link.                                                                                                       |
+|       query-order        |        Query Order Details        |                                                                                                   Queries order status, order content, delivery information, etc., used for users to check order progress or confirm order information.                                                                                                   |
+|    campaign-calendar     |   Campaign Calendar Query Tool    |                                                                                                                Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities.                                                                                                                |
+|    available-coupons     |  "MaiMaiSheng" Coupon List Query  |                                                                                                                              Queries the list of "MaiMaiSheng" coupons currently available for the user to claim.                                                                                                                               |
+|    auto-bind-coupons     |     One-Click Coupon Claiming     |                                                                       Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for.                                                                       |
+|        my-coupons        |         My Coupons Query          |                                                                                     Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering.                                                                                     |
+|     query-my-account     |          My Points Query          |                                                                                                        Queries user points account information, including available points, accumulated points, frozen points, points about to expire, etc.                                                                                                        |
+|   mall-points-products   |  Points Redemption Product List   |                                                                                            Queries meal vouchers that can be redeemed with points in MaiMai Mall (does not include physical items or third-party codes redeemed with points).                                                                                             |
+|   mall-product-detail    | Points Redemption Product Details |                                                                                                Queries detailed information of specified points redemption product vouchers (images, points, validity period, description, details, etc.).                                                                                                |
+|    mall-create-order     |  Points Redemption Product Order  |                                                                                       Uses points to redeem specified meal vouchers, completes points deduction and voucher issuance, returns redemption order number and voucher code information.                                                                                       |
+|      now-time-info       |       Get Current Time Info       |                                                                                                                      Returns complete current time information, allowing the LLM to know the current date and time.                                                                                                                       |
 
 
-### 4.1.1 Campaign Calendar Query Tool
+## 4.2 Ordering
 
-**Description:**
-> Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities. Suitable for checking campaigns the user is currently participating in or upcoming ones, and can also check the user's subscription status for campaigns.
-
-**Input Parameters:**
-
-|     name      |                                                                                                           description                                                                                                            |
-|:-------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| specifiedDate | Query activities for a specific date range (Format: yyyy-MM-dd). Returns activities for three days surrounding that date. Optional; defaults to the current month's activities. No parameter needed to query today's activities. |
-
-**Response Content:**
-
-Example:
-``` markdown
-### 当前时间：2025-12-09 14:48:42
-### 活动列表：
-#### 12月8日 往期回顾
--   **活动标题**：小女警沙发！12月12日麦麦商城见！⏰\
-    **活动内容介绍**：❗️超萌酷小女警爱心沙发来袭
-		😍小女警+汉堡刺绣+粉嫩配色
-		✨满满英雄力和快乐能量！
-		💥12月12日14:00准时发售
-		👇提前预约，心动别错过！\
-    **活动图片介绍**：\
-    <img src="https://cms-cdn.mcd.cn/img/short-content/86a849ae4b9528e53ac595ffa1b39cf9.png" alt="" height="300" width="auto">
-#### 12月9日 今日
--   **活动标题**：⏳倒计时！超人气「芝芝火腿扒堡」即将回归！\
-    **活动内容介绍**：🍔松软芝芝火腿扒堡搭配鲜萃咖啡
-		💥一堡+一咖啡！还是天天￥9.9！
-		☀一口下去给元气满满的早晨充能！
-		⏰12月15日起，超值低价闭眼冲！\
-    **活动图片介绍**：\
-    <img src="https://cms-cdn.mcd.cn/img/short-content/39bb241887869bca544b67a355cb616f.jpg" alt="" height="300" width="auto">
-```
-
-### 4.1.2 "MaiMaiSheng" Coupon List Query
+### 4.2.1 Food Nutrition Information List
 
 **Description:**
-> Queries the list of "MaiMaiSheng" coupons currently available for the user to claim. Returns coupon name, image, status, and promotional tags. Use this tool when the user asks "what discounts are available" or "what coupons can I claim".
+> Retrieves nutritional component data for common McDonald's menu items, including energy, protein, fat, carbohydrates, sodium, calcium, etc. Useful when users inquire about calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie target.
 
 **Input Parameters:**
 > No parameters required.
@@ -219,26 +211,19 @@ Example:
 **Response Content:**
 
 Example:
-``` markdown
-### 麦麦省优惠券列表：
-- 优惠券标题：11.9元麦乐鸡 \
-  状态：已领取 \
-  优惠券图片：\
-    <img src="https://img.mcd.cn/cms/images/077b86c9268d33a0.png" height="auto" width="300">
-- 优惠券标题：9.9元薯你最甜 \
-  状态：未领取 \
-  优惠券图片：\
-    <img src="https://img.mcd.cn/cms/images/0853e0f8882dc66e.png" height="auto" width="300">
-- 优惠券标题：北非蛋风味麦满分 \
-  状态：不可领取 \
-  优惠券图片：\
-    <img src="https://img.mcd.cn/cms/images/6714e5753b475d96.png" height="auto" width="300">
+``` json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-01-23 09:32:44",
+    "data": "[1]{productName,nutritionDescription,energyKj,energyKcal,protein,fat,carbohydrate,sodium,calcium}:\n  Sausage McMuffin,null,1288,308,16,16,24,781,213\n "
+}
 ```
-
-### 4.1.3 One-Click Coupon Claiming
+### 4.2.2 Get User Delivery Address List
 
 **Description:**
-> Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for. Use this tool when the user says "help me claim coupons", "auto claim coupons", or "one-click claim".
+> Queries the user's created delivery address list. Use this tool when the user has a McDonald's ordering need.
 
 **Input Parameters:**
 > No parameters required.
@@ -246,27 +231,445 @@ Example:
 **Response Content:**
 
 Example:
-``` markdown
-### 🎉 领券结果
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:29:28",
+  "traceId": "f2a0d969353467c957fd6728166eb430",
+  "data": {
+    "addresses": [
+      {
+        "addressId": "1",
+        "contactName": "<name>",
+        "phone": "152****6666",
+        "fullAddress": "xx Province xx City xxx Community x Building x Unit xxx Room",
+        "storeCode": "12345",
+        "storeName": "xxx",
+        "beCode": "12345"
+      }
+    ]
+  }
+}
+```
+### 4.2.3 Add Delivery Address
 
-**总计**: 1 张优惠券
-**成功**: 1 张
-**失败**: 0 张
+**Description:**
+> Used when the user has no delivery address or the current list does not contain the desired delivery address, allowing the user to add a new delivery address.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| city | City name, required. e.g. `Nanjing` |
+| contactName | Contact name, required. e.g. `Li Ming` |
+| gender | Gender, optional. e.g. `Mr.`, `Ms.` |
+| phone | Contact phone number, required. 11-digit mobile number, e.g. `16666666666` |
+| address | Delivery address, required. e.g. `Qingzhuyuan Building 9` |
+| addressDetail | Delivery address unit/room number, required. e.g. `Unit 2, Room 508` |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:29:28",
+  "traceId": "f2a0d969353467c957fd6728166eb430",
+  "data": {
+    "addressId": "1",
+    "contactName": "<name>",
+    "phone": "152****6666",
+    "fullAddress": "xx Province xx City xxx Community x Building x Unit xxx Room",
+    "storeCode": "12345",
+    "storeName": "xxx",
+    "beCode": "12345"
+  }
+}
+```
+### 4.2.4 Query Available Coupons at Store
+
+**Description:**
+> Queries coupons available to the user at the current store. Use this tool when the user asks what coupons are currently available.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| storeCode | Store code, required |
+| beCode | BE code (Business Entity Code), required |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:32:41",
+  "traceId": "0f694a844e393e6cb0717455d9229a24",
+  "data": [
+    {
+      "title": "Delivery coupon secondary voucher",
+      "couponId": "xxxxxxxxxx",
+      "couponCode": "xxxxxx",
+      "tradeDateTime": "2025-04-21 23:23:00-2026-07-01 23:59:59",
+      "products": [
+        {
+          "productCode": "xxxxxxxxx",
+          "productName": "Sweet Snack 1+1"
+        }
+      ]
+    }
+  ]
+}
+```
+### 4.2.5 Query Store Menu List
+
+**Description:**
+> Queries the list of meals available at the current store. Use this tool when the user wants to view the store menu or place an order.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| storeCode | Store code, required |
+| beCode | BE code (Business Entity Code), required |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 09:47:35",
+  "traceId": "4b2b4de1d772dad2dc498597c65cf3af",
+  "data": {
+    "categories": [
+      {
+        "name": "Popular",
+        "meals": [
+          {
+            "code": "9900008139",
+            "tags": []
+          },
+          {
+            "code": "9900008169",
+            "tags": []
+          },
+          {
+            "code": "920215",
+            "tags": [
+              "Half price for 2nd item"
+            ]
+          }
+        ],
+        "daypart": 8
+      }
+    ],
+    "meals": {
+      "920215": {
+        "name": "Bacon Angus Thick Beef Burger Large Combo",
+        "currentPrice": "55.5"
+      },
+      "9900008139": {
+        "name": "DC Combo Test",
+        "currentPrice": "14"
+      },
+      "9900008169": {
+        "name": "Double Deep Sea Cod Burger",
+        "currentPrice": "25"
+      }
+    }
+  }
+}
+```
+### 4.2.6 Query Meal Details
+
+**Description:**
+> Queries meal details based on the meal code returned from the menu list, including combo composition and other information. Use this tool when viewing meal details.
+
+**Important Note:**
+> Changing default selections is not supported in this version. More features will be available in future updates.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| code | Meal code, required |
+| storeCode | Store code |
+| beCode | BE code (Business Entity Code), required |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:37:19",
+  "traceId": "21de60d22eea026cae0428f714359e2c",
+  "data": {
+    "code": "9900008139",
+    "price": "14",
+    "rounds": [
+      {
+        "id": 1,
+        "name": "Hamburger",
+        "quantity": 1,
+        "maxQuantity": 1,
+        "minQuantity": 1,
+        "choices": [
+          {
+            "code": "1000",
+            "name": "Hamburger-pool1",
+            "quantity": 1,
+            "maxQuantity": -1
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+### 4.2.7 Calculate Item Price
+
+**Description:**
+> Calculates the price of items and discounts for the user's purchase. Use this tool when the user asks about the price of an item or a combination of items.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| storeCode | Store code (obtained from `deliveryQueryAddresses`) |
+| beCode | BE code (Business Entity Code, obtained from `deliveryQueryAddresses`) |
+| items | Item list (array) |
+
+`items` field structure:
+
+| name | description |
+|------|-------------|
+| productCode | Product code, required (if the user uses a coupon, productCode is the coupon product code) |
+| quantity | Product quantity, required |
+| couponId | Coupon ID, optional (if the user wants to use a coupon) |
+| couponCode | Coupon code, optional (if the user wants to use a coupon) |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:39:50",
+  "traceId": "1f90ace087d33bdabd3b8c27da4e7b0a",
+  "data": {
+    "productOriginalPrice": 1600,
+    "productPrice": 1600,
+    "deliveryOriginalPrice": 600,
+    "deliveryPrice": 600,
+    "originalPrice": 2200,
+    "discount": 0,
+    "price": 2200,
+    "productList": [
+      {
+        "productCode": "xxxxxxx",
+        "productName": "DC Combo Test",
+        "quantity": 1,
+        "originalSubtotal": 1600,
+        "subtotal": 1600
+      }
+    ]
+  }
+}
+```
+### 4.2.8 Create Delivery Order
+
+**Description:**
+> Creates a delivery order. Use this tool when the user wants to place an order.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| storeCode | Store code (obtained from `deliveryQueryAddresses`) |
+| beCode | BE code (Business Entity Code, obtained from `deliveryQueryAddresses`) |
+| items | Item list (array) |
+
+`items` field structure:
+
+| name | description |
+|------|-------------|
+| productCode | Product code, required (if the user uses a coupon, productCode is the coupon product code) |
+| quantity | Product quantity, required |
+| couponId | Coupon ID, optional (if the user wants to use a coupon) |
+| couponCode | Coupon code, optional (if the user wants to use a coupon) |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:42:51",
+  "traceId": "80572509920e2e1e4a4373ee9eeca070",
+  "data": {
+    "orderId": "1030938730000733964700499858",
+    "payId": "11940981078137585664",
+    "payH5Url": "https://m-sit.mcdchina.net/mcp/scanToPay?orderId=1030938730000733964700499858",
+    "orderDetail": {
+      "orderStatus": "Pending Payment",
+      "storeName": "xxxxxx Store",
+      "storeAddress": "xxxxx",
+      "orderProductList": [
+        {
+          "productName": "DC Combo Test",
+          "quantity": 1,
+          "price": "16",
+          "comboItemList": [
+            {
+              "itemName": "Hamburger-pool1 with extra cream (add)",
+              "itemQuantity": 1
+            }
+          ]
+        }
+      ],
+      "totalAmount": "22",
+      "realTotalAmount": "22",
+      "totalDiscountAmount": "0",
+      "couponList": [],
+      "deliveryInfo": {
+        "deliveryType": "Deliver Now",
+        "deliveryAddress": "xxxx Community - xx Building",
+        "addressDetail": "xxx Room",
+        "customerNickname": "<name>",
+        "mobilePhone": "152****6666",
+        "expectDeliveryTime": ""
+      },
+      "createTime": "2026-02-09 14:42:51",
+      "deliveryPrice": "6",
+      "realDeliveryPrice": "6",
+      "productPrice": "16"
+    }
+  }
+}
+```
+### 4.2.9 Query Order Details
+
+**Description:**
+> Queries order details. Use this tool when the user wants to check order status, order progress, or other order information.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| orderId | Order ID, required |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-02-09 14:44:29",
+  "traceId": "341e2dce2af4a61497b52097125a8a77",
+  "data": {
+    "orderId": "1030938730000733964700499858",
+    "orderStatus": "Pending Payment",
+    "storeName": "xxxxx Store",
+    "orderProductList": [
+      {
+        "productName": "DC Combo Test",
+        "quantity": 1,
+        "price": "16",
+        "comboItemList": [
+          {
+            "itemName": "Hamburger-pool1 with extra cream (add)",
+            "itemQuantity": 1
+          }
+        ]
+      }
+    ],
+    "totalAmount": "22",
+    "realTotalAmount": "22",
+    "totalDiscountAmount": "0",
+    "couponList": [],
+    "deliveryInfo": {
+      "deliveryType": "Deliver Now",
+      "deliveryAddress": "xxxx Community - xx Building",
+      "addressDetail": "xxx Room",
+      "customerNickname": "<name>",
+      "mobilePhone": "152****6666",
+      "expectDeliveryTime": ""
+    },
+    "createTime": "2026-02-09 14:42:51",
+    "deliveryPrice": "6",
+    "realDeliveryPrice": "6",
+    "productPrice": "16"
+  }
+}
+```
 
 ---
 
-#### ✅ 成功领取的优惠券：
+## 4.3 MaiMai Calendar
 
-- **9.9元薯你最甜**
-  - couponId：8ED8D8BEBEBDEF26B615682E92EFAC86
-  - couponCode：MCDD60T892ST5EV00N1090
-  - 图片：<img src="https://img.mcd.cn/cms/images/0853e0f8882dc66e.png" alt="9.9元薯你最甜" height="200" width="auto">
-```
-
-### 4.1.4 My Coupons Query
+### 4.3.1 Campaign Calendar Query Tool
 
 **Description:**
-> Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering. **Includes but not limited to usage scenarios**: - User wants to know what coupons they can use - Checking coupon validity and usage conditions - Viewing coupon quantity and status.
+> Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities. Suitable for viewing ongoing and upcoming activities users can participate in, and can also query user subscription status for activities.
+
+**Input Parameters:**
+
+|     name      |                              description                               |
+|:-------------:|:----------------------------------------------------------------------:|
+| specifiedDate | Query activities for a specified date range (format: yyyy-MM-dd). Returns activities for three days around that date. Optional; defaults to querying current month's activities. No parameter needed to query today's activities. |
+
+**Response Content:**
+
+Example:
+``` markdown
+### Current Time: 2025-12-09 14:48:42
+### Activity List:
+#### December 8 Past Review
+-   **Activity Title**: Powerpuff Girls Sofa! Coming to MaiMai Mall on December 12! ⏰\
+    **Activity Content**: ❗️Super cute Powerpuff Girls heart sofa is here
+    😍Powerpuff Girls + hamburger embroidery + pink color scheme
+    ✨Full of hero power and happy energy!
+    💥On sale December 12 at 14:00 sharp
+    👇Pre-order now, don't miss out!\
+    **Activity Image**:\
+    <img src="https://cms-cdn.mcd.cn/img/short-content/86a849ae4b9528e53ac595ffa1b39cf9.png" alt="" height="300" width="auto">
+#### December 9 Today
+-   **Activity Title**: ⏳Countdown! Super popular "Cheese Ham Patty Burger" is coming back!\
+    **Activity Content**: 🍔Soft cheese ham patty burger paired with fresh brewed coffee
+    💥One burger + one coffee! Still only ¥9.9 every day!
+    ☀One bite to energize your morning!
+    ⏰Starting December 15, super value low price, go for it!\
+    **Activity Image**:\
+    <img src="https://cms-cdn.mcd.cn/img/short-content/39bb241887869bca544b67a355cb616f.jpg" alt="" height="300" width="auto">
+```
+
+---
+
+## 4.4 MaiMaiSheng Coupons
+
+### 4.4.1 MaiMaiSheng Coupon List Query
+
+**Description:**
+> Queries the list of "MaiMaiSheng" coupons currently available for the user to claim. Returns coupon name, image, status, and promotional tags. Use this tool when users ask about available deals or what coupons they can claim.
 
 **Input Parameters:**
 > No parameters required.
@@ -275,23 +678,235 @@ Example:
 
 Example:
 ``` markdown
-# 您的优惠券列表
+### MaiMaiSheng Coupon List:
+- Coupon Title: 11.9 Yuan McNuggets \
+  Status: Claimed \
+  Coupon Image:\
+    <img src="https://img.mcd.cn/cms/images/077b86c9268d33a0.png" height="auto" width="300">
+- Coupon Title: 9.9 Yuan Sweet Fries \
+  Status: Not Claimed \
+  Coupon Image:\
+    <img src="https://img.mcd.cn/cms/images/0853e0f8882dc66e.png" height="auto" width="300">
+- Coupon Title: North African Egg McMuffin \
+  Status: Cannot Claim \
+  Coupon Image:\
+    <img src="https://img.mcd.cn/cms/images/6714e5753b475d96.png" height="auto" width="300">
+```
 
-共 1 张可用优惠券
+### 4.4.2 MaiMaiSheng One-Click Coupon Claiming
 
-## 9.9元薯你最甜
-- **优惠**: ¥9.9 (用券价格)
-- **有效期**: 2025-12-09 00:00-2026-02-12 23:59
-- **领取时间**: 今日收到
-- **标签**: 到店专用、外送专用
+**Description:**
+> Automatically claims all currently available McDonald's coupons from MaiMaiSheng. No need to specify specific coupons or couponId; the system will automatically claim all coupons available to the user. Use this tool when users say "help me claim coupons", "automatically claim coupons", or "one-click claim".
 
-<img src="https://mcd-portal-prod-cos1-1300270282.cos.ap-shanghai.myqcloud.com/campaign/prod/campaign-offer/coupon/66f226e438714697b9f15d1a753d91ba/%E5%A4%A7%E8%96%AF%E6%9D%A1.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDCD6mEcX25tVrjNxiPvEICas0uXyBKIBs%26q-sign-time%3D1763363214%3B1921043214%26q-key-time%3D1763363214%3B1921043214%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D59b757fb6a863e8debfcdce8e595bf268d9c0cb9" alt="悟空加价特调免费券0411" height="300" width="auto">
+**Input Parameters:**
+> No parameters required.
+
+**Response Content:**
+
+Example:
+``` markdown
+### 🎉 Coupon Claiming Result
+
+**Total**: 1 coupon
+**Success**: 1
+**Failed**: 0
+
+---
+
+#### ✅ Successfully Claimed Coupons:
+
+- **9.9 Yuan Sweet Fries**
+  - couponId: 8ED8D8BEBEBDEF26B615682E92EFAC86
+  - couponCode: MCDD60T892ST5EV00N1090
+  - Image: <img src="https://img.mcd.cn/cms/images/0853e0f8882dc66e.png" alt="9.9 Yuan Sweet Fries" height="200" width="auto">
+```
+
+### 4.4.3 My Coupons Query
+
+**Description:**
+> Queries what available coupons I have. Like opening the "My Coupons" page in the McDonald's APP, you can see all the coupon lists that can be used for ordering. **Including but not limited to use cases**: - Users want to know what coupons they can use - Check coupon validity period and usage conditions - View coupon quantity and status
+
+**Input Parameters:**
+> No parameters required.
+
+**Response Content:**
+
+Example:
+``` markdown
+# Your Coupon List
+
+Total 1 available coupon
+
+## 9.9 Yuan Sweet Fries
+- **Discount**: ¥9.9 (price with coupon)
+- **Valid Period**: 2025-12-09 00:00-2026-02-12 23:59
+- **Claimed Time**: Received today
+- **Tags**: In-store only, Delivery only
+
+<img src="https://mcd-portal-prod-cos1-1300270282.cos.ap-shanghai.myqcloud.com/campaign/prod/campaign-offer/coupon/66f226e438714697b9f15d1a753d91ba/%E5%A4%A7%E8%96%AF%E6%9D%A1.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDCD6mEcX25tVrjNxiPvEICas0uXyBKIBs%26q-sign-time%3D1763363214%3B1921043214%26q-key-time%3D1763363214%3B1921043214%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D59b757fb6a863e8debfcdce8e595bf268d9c0cb9" alt="Wukong Premium Drink Free Coupon 0411" height="300" width="auto">
 
 ```
 
-### 4.1.5 Current Time Info Query Tool
+---
+
+## 4.5 MaiMai Mall
+
+### 4.5.1 My Points Query
+
 **Description:**
-> Get current time information - Returns complete current server time information, including: - Timestamp (milliseconds) - Formatted datetime - Year/Month/Day info - Timezone and UTC time. Useful when you don't know the current time but the user requests a campaign calendar query for a specific date.
+> Queries the user's points account information, including historical accumulated points, available points, expired points, etc. Use this tool when users inquire about their account points balance.
+
+**Input Parameters:**
+> No parameters required.
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request successful",
+  "datetime": "2026-02-09 13:58:34",
+  "traceId": "713a18de45735089a3b8a0e8a7cf3e36",
+  "data": {
+    "availablePoint": "7592",
+    "accumulativePoint": "141760.94",
+    "currency": "McDonald's Points",
+    "currentMouthExpirePoint": "0",
+    "expiredPoint": "0",
+    "frozenPoint": "30",
+    "lastMouthExpirePoint": "0",
+    "nextMouthExpirePoint": "0",
+    "usedPoint": "115474.14"
+  }
+}
+```
+
+### 4.5.2 Points Redemption Product List
+
+**Description:**
+> Queries meal vouchers that can be redeemed with points in the MaiMai Mall (excluding physical items or third-party codes redeemable with points). Use this tool when users inquire about what product vouchers can be redeemed with points.
+
+**Input Parameters:**
+> No parameters required.
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request successful",
+  "datetime": "2026-02-09 13:59:12",
+  "traceId": "43d1d331b103b29bd07a93d441409804",
+  "data": [
+    {
+      "spuName": "Medium Latte/Americano 500 Points",
+      "spuId": 542,
+      "skuId": 10997,
+      "spuImage": "https://cdn-test.mcdchina.net/ecs/b6e0616d94c1f733.png",
+      "point": "500",
+      "shopId": 2,
+      "selling": "",
+      "upTime": "2026-02-02 00:00:00",
+      "downTime": "2026-04-30 23:59:59"
+    }
+  ]
+}
+```
+
+### 4.5.3 Points Redemption Product Details
+
+**Description:**
+Queries detailed information about product vouchers that can be redeemed with points.
+Use this tool when users want to learn more about a specific product voucher (such as usage method, validity period, etc.).
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| skuId   | The product skuId selected by the user from the points redemption product list, representing the specific specification ID of this product. Required, Long type. |
+| count   | Indicates the quantity of vouchers the user wants to redeem. Optional, Integer type, default=1. |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request successful",
+  "datetime": "2026-02-09 14:03:20",
+  "traceId": "801b027a09821d95f8a8d26337245ea7",
+  "data": {
+    "spuName": "Medium Latte/Americano 500 Points",
+    "spuId": 542,
+    "skuId": 10997,
+    "images": [
+      "https://cdn-test.mcdchina.net/ecs/b6e0616d94c1f733.png"
+    ],
+    "points": "500",
+    "shopId": 2,
+    "extTradePrice": "7",
+    "selling": "",
+    "note": "note",
+    "detail": "detail",
+    "upDate": "2026-02-02 00:00:00",
+    "downDate": "2026-04-30 23:59:59"
+  }
+}
+```
+
+### 4.5.4 Points Redemption Product Order
+
+**Description:**
+> Supports users redeeming product vouchers with points, completing points verification, points deduction, and voucher issuance. Use this tool when users need to redeem a product voucher with points.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| skuId | The product skuId selected by the user from the points redemption product list, representing the specific specification ID of this product. Required, Long type. |
+| count | Indicates the quantity of vouchers the user wants to redeem. Optional, Integer type, default=1. |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request successful",
+  "datetime": "2026-02-09 14:04:51",
+  "traceId": "da02dd48f941d934e4765627acdc27f4",
+  "data": {
+    "orderId": "ECS1202144786604392448",
+    "coupons": [
+      {
+        "couponId": "2BCEFFB7E1CEA6BD32A43C45A1CE80B3",
+        "orderItemId": "202144786647384064",
+        "couponCodes": [
+          "MCDD6E08N9100KC050F087"
+        ],
+        "orderItemStatus": 1
+      }
+    ],
+    "orderStatus": 30,
+    "status": 1
+  }
+}
+```
+
+---
+
+## 4.6 General Utilities
+
+### 4.6.1 Current Time Information Query Tool
+
+**Description:**
+> Gets current time information - Returns complete current server time information, including: - Timestamp (millisecond level) - Formatted date and time - Year, month, day information - Timezone and UTC time. Useful when you don't know the current time and the user needs to specify a date to query the activity calendar.
 
 **Input Parameters:**
 > No parameters required.
@@ -303,7 +918,7 @@ Example:
 {
   "success": true,
   "code": 200,
-  "message": "请求成功",
+  "message": "Request successful",
   "datetime": "2025-12-11 17:57:05",
   "traceId": "7b7255e6b4682f35dc0b4df39ffcf02d",
   "data": {
@@ -322,25 +937,7 @@ Example:
 }
 ```
 
-### 4.1.6 Food Nutrition Information List
-**Description**:
-> Retrieves nutritional component data for McDonald's China regular menu items, including energy, protein, fat, carbohydrates, sodium, calcium and other related information. It assists users in creating **calorie-customized meal combinations** when they inquire about the calorie and nutritional details of McDonald's menu items.
-
-**Input Parameters**:
-> No input parameters required
-
-**Response Content**:
-
-Example:
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "Request succeeded",
-    "datetime": "2026-01-23 09:32:44",
-    "data": "[1]{productName,nutritionDescription,energyKj,energyKcal,protein,fat,carbohydrate,sodium,calcium}:\n  Sausage McMuffin,null,1288,308,16,16,24,781,213\n "
-}
-```
+---
 
 # 5. Version Log
 
@@ -348,6 +945,7 @@ Example:
 |:----------:|:-------:|----------------------------------------------------------------------------------------------------------|
 | 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server                                                        |
 | 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool, we shortened the URL for easier access and integration |
+| 2026-02-13 |  1.0.2  | Added McDelivery ordering and points redemption voucher scenario tools                                   |
 
 ---
 
