@@ -9,9 +9,10 @@
 </p>
 
 # Introduction
-**What is McDonald's China MCP Server?**
-- McDonald's China MCP Server is a data interaction interface service that complies with the Model Context Protocol (MCP) standard, provided by McDonald's China for use in mainland China (excluding Hong Kong, Macau, and Taiwan).
-- McDonald's China MCP Server now covers five core business interfaces, providing developers with integration support for McDonald's brand information and member account benefits. Currently supported functions include McDelivery ordering, points redemption vouchers, activity calendar queries, and "MaiMaiSheng" coupon queries and claiming. More practical tools are under continuous development and will be launched soon. Stay tuned.
+
+**What is McDonald's MCP Service?**
+- McDonald's MCP Service is a data interaction interface service that complies with the Model Context Protocol (MCP) standard, provided by McDonald's China for use in mainland China (excluding Hong Kong, Macau, and Taiwan).
+- McDonald's MCP Service now covers McDelivery ordering, points redemption vouchers, activity calendar queries, and other business scenarios. More practical tools are under continuous development and will be launched soon.
 
 # News
 - **[2026-02] `Feature`:** We have added "McDelivery Ordering" and "Points Redemption Vouchers" feature modules, supporting complete food delivery and points redemption services. [View Tool Details](#4-tools)
@@ -43,7 +44,7 @@
 
 
 ## 2.1 Access Address
-> Server Access URL: https://mcp.mcd.cn
+> Server Access URL: `https://mcp.mcd.cn`
 
 ## 2.2 Protocol and Security
 > Connect using the **Streamable HTTP** protocol.\
@@ -77,7 +78,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 ## 2.5 Integration Tutorials for Different Platforms:
 ### 2.5.1 Cherry Studio
-> **Prerequisites**: Requires a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
+> **Prerequisites**: Requires application for a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
 > Reference: Cherry Studio Official Documentation: https://docs.cherry-ai.com/advanced-basic/mcp
 
 1. Open Cherry Studio and enter the Settings page.
@@ -100,14 +101,14 @@ Congratulations! You have successfully set up MCP! Go to the chat window to star
 
 
 ### 2.5.2 Cursor
-> **Prerequisites**: Requires a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
+> **Prerequisites**: Requires application for a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
 > Reference: Cursor Official Documentation: https://cursor.com/cn/docs/context/mcp
 
 Open Cursor, click top menu [Settings] → [Tools & MCP]. Under "Installed MCP Servers", click [Add Custom MCP].
 
 <div class="img"><img src="https://img.mcd.cn/gallery/b4817eeb8c597384.png" alt="" width="1000" /></div>
 
-In the opened `mcp.json` file, fill in the JSON content copied from above. Remember to replace `YOUR_MCP_TOKEN` with your actual key. Click [Close] and select [Save].
+In the opened `mcp.json` file, fill in the JSON content copied from above. Remember to replace `YOUR_MCP_TOKEN` with your actual token. Click [Close] and select [Save].
 
 <div class="img"><img src="https://img.mcd.cn/gallery/671f20806476f7f7.png" alt="" width="1000" /></div>
 
@@ -121,7 +122,7 @@ Press CTRL/CMD + L to open the right-side Agent dialog. You can now directly inp
 
 
 ### 2.5.3 TRAE
-> **Prerequisites**: Requires a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
+> **Prerequisites**: Requires application for a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
 > Reference: TRAE Official Documentation: https://docs.trae.cn/ide/model-context-protocol
 
 Open Trae, click [Settings] → [MCP] → [Manual Add] to add.
@@ -129,7 +130,7 @@ Open Trae, click [Settings] → [MCP] → [Manual Add] to add.
 <div class="img"><img src="https://img.mcd.cn/gallery/1b29297767cc5458.png" alt="" width="1000" /></div>
 <div class="img"><img src="https://img.mcd.cn/gallery/720beadfcd8c7573.png" alt="" width="1000" /></div>
 
-In the manual configuration page, fill in the JSON content copied from above. Remember to replace `YOUR_MCP_TOKEN` with your actual key, then click [Confirm].
+In the manual configuration page, fill in the JSON content copied from above. Remember to replace `YOUR_MCP_TOKEN` with your actual token, then click [Confirm].
 
 <div class="img"><img src="https://img.mcd.cn/gallery/a532f0555f6d0497.png" alt="" width="1000" /></div>
 
@@ -147,7 +148,6 @@ You can now directly input requests in the dialog and let the AI call the tools 
 
 # 3. Debugging Guide
 ## 3.1 Recommended MCP Clients
-
 
 |    Client     |                                 Link                                 |
 |:-------------:|:--------------------------------------------------------------------:|
@@ -168,7 +168,7 @@ As of February 12, 2026
 |   Kimi   |          k2.5          |
 |  Zhipu   |         GLM-5          |
 |  Gemini  | gemini-3-flash-preview |
-| Deepseek |     DeepSeek-V3.2      |
+| DeepSeek |     DeepSeek-V3.2      |
 
 
 # 4. Tools
@@ -176,26 +176,107 @@ As of February 12, 2026
 
 ## 4.1 Tool List
 
-|         **Tool**         |             **Name**              |                                                                                                                                                              **Description**                                                                                                                                                              |
-|:------------------------:|:---------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-|   list-nutrition-foods   |  Food Nutrition Information List  | Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content. |
-| delivery-query-addresses |  Get User Delivery Address List   |                                                                           Queries the user's created delivery address list, used for selecting delivery addresses when ordering food delivery, and obtains corresponding store information (storeCode, beCode).                                                                           |
-| delivery-create-address  |       Add Delivery Address        |                                                                                                          Used when the user has no delivery address or needs to add a new delivery address, for creating a new delivery address.                                                                                                          |
-|   query-usable-coupons   | Query Available Coupons at Store  |                                                                                                              Queries the list of coupons available at the current store, used for selecting available coupons when ordering.                                                                                                              |
-|       query-meals        |       Query Store Menu List       |                                                                                                   Queries the menu of meals available at the current store (categories, meal codes, tags, etc.), used for meal selection when ordering.                                                                                                   |
-|       meal-detail        |        Query Meal Details         |                                                                                                          Queries meal details based on meal code (combo composition, default selections, etc.), used for viewing combo contents.                                                                                                          |
-|     calculate-price      |       Calculate Item Price        |                                                                                                    Calculates item amount, delivery fee, discount amount, and total payable based on user's selected item list (may include coupons).                                                                                                     |
-|       create-order       |       Create Delivery Order       |                                                                                                       Creates a delivery order based on store information, delivery address, and item list, returns order details and payment link.                                                                                                       |
-|       query-order        |        Query Order Details        |                                                                                                   Queries order status, order content, delivery information, etc., used for users to check order progress or confirm order information.                                                                                                   |
-|    campaign-calendar     |   Campaign Calendar Query Tool    |                                                                                                                Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities.                                                                                                                |
-|    available-coupons     |  "MaiMaiSheng" Coupon List Query  |                                                                                                                              Queries the list of "MaiMaiSheng" coupons currently available for the user to claim.                                                                                                                               |
-|    auto-bind-coupons     |     One-Click Coupon Claiming     |                                                                       Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for.                                                                       |
-|        my-coupons        |         My Coupons Query          |                                                                                     Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering.                                                                                     |
-|     query-my-account     |          My Points Query          |                                                                                                        Queries user points account information, including available points, accumulated points, frozen points, points about to expire, etc.                                                                                                        |
-|   mall-points-products   |  Points Redemption Product List   |                                                                                            Queries meal vouchers that can be redeemed with points in MaiMai Mall (does not include physical items or third-party codes redeemed with points).                                                                                             |
-|   mall-product-detail    | Points Redemption Product Details |                                                                                                Queries detailed information of specified points redemption product vouchers (images, points, validity period, description, details, etc.).                                                                                                |
-|    mall-create-order     |  Points Redemption Product Order  |                                                                                       Uses points to redeem specified meal vouchers, completes points deduction and voucher issuance, returns redemption order number and voucher code information.                                                                                       |
-|      now-time-info       |       Get Current Time Info       |                                                                                                                      Returns complete current time information, allowing the LLM to know the current date and time.                                                                                                                       |
+<table>
+  <thead>
+    <tr>
+      <th style="white-space: nowrap; text-align: center;"><strong>Tool</strong></th>
+      <th style="min-width: 100px;"><strong>Name</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">list-nutrition-foods</td>
+      <td>Food Nutrition Information List</td>
+      <td>Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">delivery-query-addresses</td>
+      <td>Get User Delivery Address List</td>
+      <td>Queries the user's created delivery address list, used for selecting delivery addresses when ordering food delivery, and obtains corresponding store information (storeCode, beCode).</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">delivery-create-address</td>
+      <td>Add Delivery Address</td>
+      <td>Used when the user has no delivery address or needs to add a new delivery address, for creating a new delivery address.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-usable-coupons</td>
+      <td>Query Available Coupons at Store</td>
+      <td>Queries the list of coupons available at the current store, used for selecting available coupons when ordering.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-meals</td>
+      <td>Query Store Menu List</td>
+      <td>Queries the menu of meals available at the current store (categories, meal codes, tags, etc.), used for meal selection when ordering.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">meal-detail</td>
+      <td>Query Meal Details</td>
+      <td>Queries meal details based on meal code (combo composition, default selections, etc.), used for viewing combo contents.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">calculate-price</td>
+      <td>Calculate Item Price</td>
+      <td>Calculates item amount, delivery fee, discount amount, and total payable based on user's selected item list (may include coupons).</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">create-order</td>
+      <td>Create Delivery Order</td>
+      <td>Creates a delivery order based on store information, delivery address, and item list, returns order details and payment link.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-order</td>
+      <td>Query Order Details</td>
+      <td>Queries order status, order content, delivery information, etc., used for users to check order progress or confirm order information.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">campaign-calendar</td>
+      <td>Campaign Calendar Query Tool</td>
+      <td>Queries McDonald's China monthly marketing campaign calendar. Returns ongoing, past, and future activities.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">available-coupons</td>
+      <td>"MaiMaiSheng" Coupon List Query</td>
+      <td>Queries the list of "MaiMaiSheng" coupons currently available for the user to claim.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">auto-bind-coupons</td>
+      <td>One-Click Coupon Claiming</td>
+      <td>Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">my-coupons</td>
+      <td>My Coupons Query</td>
+      <td>Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-my-account</td>
+      <td>My Points Query</td>
+      <td>Queries user points account information, including available points, accumulated points, frozen points, points about to expire, etc.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-points-products</td>
+      <td>Points Redemption Product List</td>
+      <td>Queries meal vouchers that can be redeemed with points in MaiMai Mall (does not include physical items or third-party codes redeemed with points).</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-product-detail</td>
+      <td>Points Redemption Product Details</td>
+      <td>Queries detailed information of specified points redemption product vouchers (images, points, validity period, description, details, etc.).</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-create-order</td>
+      <td>Points Redemption Product Order</td>
+      <td>Uses points to redeem specified meal vouchers, completes points deduction and voucher issuance, returns redemption order number and voucher code information.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">now-time-info</td>
+      <td>Get Current Time Info</td>
+      <td>Returns complete current time information, allowing the LLM to know the current date and time.</td>
+    </tr>
+  </tbody>
+</table>
 
 
 ## 4.2 Ordering
@@ -300,7 +381,7 @@ Example:
 | name | description |
 |------|-------------|
 | storeCode | Store code, required |
-| beCode | BE code (Business Entity Code), required |
+| beCode | BE code (brand extension), required |
 
 **Response Content:**
 
@@ -338,7 +419,7 @@ Example:
 | name | description |
 |------|-------------|
 | storeCode | Store code, required |
-| beCode | BE code (Business Entity Code), required |
+| beCode | BE code (brand extension), required |
 
 **Response Content:**
 
@@ -448,8 +529,8 @@ Example:
 
 | name | description |
 |------|-------------|
-| storeCode | Store code (obtained from `deliveryQueryAddresses`) |
-| beCode | BE code (Business Entity Code, obtained from `deliveryQueryAddresses`) |
+| storeCode | Store code (obtained from `delivery-query-addresses`) |
+| beCode | BE code (brand extension, obtained from `delivery-query-addresses`) |
 | items | Item list (array) |
 
 `items` field structure:
@@ -500,8 +581,8 @@ Example:
 
 | name | description |
 |------|-------------|
-| storeCode | Store code (obtained from `deliveryQueryAddresses`) |
-| beCode | BE code (Business Entity Code, obtained from `deliveryQueryAddresses`) |
+| storeCode | Store code (obtained from `delivery-query-addresses`) |
+| beCode | BE code (brand extension, obtained from `delivery-query-addresses`) |
 | items | Item list (array) |
 
 `items` field structure:
@@ -724,7 +805,7 @@ Example:
 ### 4.4.3 My Coupons Query
 
 **Description:**
-> Queries what available coupons I have. Like opening the "My Coupons" page in the McDonald's APP, you can see all the coupon lists that can be used for ordering. **Including but not limited to use cases**: - Users want to know what coupons they can use - Check coupon validity period and usage conditions - View coupon quantity and status
+> Queries what available coupons I have. Like opening the "My Coupons" page in the McDonald's App, you can see all the coupon lists that can be used for ordering. **Including but not limited to use cases**: - Users want to know what coupons they can use - Check coupon validity period and usage conditions - View coupon quantity and status
 
 **Input Parameters:**
 > No parameters required.
@@ -827,8 +908,7 @@ Use this tool when users want to learn more about a specific product voucher (su
 
 | name | description |
 |------|-------------|
-| skuId   | The product skuId selected by the user from the points redemption product list, representing the specific specification ID of this product. Required, Long type. |
-| count   | Indicates the quantity of vouchers the user wants to redeem. Optional, Integer type, default=1. |
+| spuId | The product spuId selected by the user from the points redemption product list, representing the product ID. Required, Long type. |
 
 **Response Content:**
 
@@ -945,7 +1025,7 @@ Example:
 |:----------:|:-------:|----------------------------------------------------------------------------------------------------------|
 | 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server                                                        |
 | 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool, we shortened the URL for easier access and integration |
-| 2026-02-13 |  1.0.2  | Added McDelivery ordering and points redemption voucher scenario tools                                   |
+| 2026-02-13 |  1.0.2  | Added McDelivery ordering and points redemption voucher tools                                            |
 
 ---
 
