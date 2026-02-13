@@ -77,7 +77,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 ## 2.5 Integration Tutorials for Different Platforms:
 ### 2.5.1 Cherry Studio
-> **Prerequisites**: You must have applied for a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
+> **Prerequisites**: Requires a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
 > Reference: Cherry Studio Official Documentation: https://docs.cherry-ai.com/advanced-basic/mcp
 
 1. Open Cherry Studio and enter the Settings page.
@@ -100,7 +100,7 @@ Congratulations! You have successfully set up MCP! Go to the chat window to star
 
 
 ### 2.5.2 Cursor
-> **Prerequisites**: You must have applied for a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
+> **Prerequisites**: Requires a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
 > Reference: Cursor Official Documentation: https://cursor.com/cn/docs/context/mcp
 
 Open Cursor, click top menu [Settings] → [Tools & MCP]. Under "Installed MCP Servers", click [Add Custom MCP].
@@ -121,7 +121,7 @@ Press CTRL/CMD + L to open the right-side Agent dialog. You can now directly inp
 
 
 ### 2.5.3 TRAE
-> **Prerequisites**: You must have applied for a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
+> **Prerequisites**: Requires a McDonald's China MCP Token. Tutorial: [Apply for MCP Token](#1-apply-for-mcp-token)\
 > Reference: TRAE Official Documentation: https://docs.trae.cn/ide/model-context-protocol
 
 Open Trae, click [Settings] → [MCP] → [Manual Add] to add.

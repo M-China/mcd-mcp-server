@@ -44,7 +44,7 @@
 
 
 ## 2.1 接入地址
-> 服务器接入地址：https://mcp.mcd.cn
+> 服务器接入地址：`https://mcp.mcd.cn`
 
 ## 2.2 传输协议与安全
 > 使用 **Streamable HTTP** 协议接入\
@@ -78,7 +78,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 ## 2.5 各平台接入教程：
 ### 2.5.1 Cherry Studio
-> **前置条件**：一定需要申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
+> **前置条件**：需申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
 > 参考 Cherry Studio 官方文档：https://docs.cherry-ai.com/advanced-basic/mcp
 
 1、 打开 Cherry Studio，进入设置页面\
@@ -101,7 +101,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 
 ### 2.5.2 Cursor
-> 前置条件：一定需要申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
+> **前置条件**：需申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
 > 参考 Cursor 官方文档：https://cursor.com/cn/docs/context/mcp
 
 打开 Cursor，点击顶部菜单栏【设置】→【Tools & MCP】，在 Installed MCP Servers 中点击【Add Custom MCP】
@@ -122,7 +122,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 
 ### 2.5.3 TRAE
-> 前置条件：一定需要申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
+> **前置条件**：需申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
 > 参考 TRAE 官方文档：https://docs.trae.cn/ide/model-context-protocol
 
 打开 Trae，点击【设置】→【MCP】→ 【手动添加】进行添加
@@ -942,7 +942,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 |:----------:|:-------:|------------------------------------|
 | 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server              |
 | 2026-01-23 |  1.0.1  | 增加了"餐品营养信息列表"Tool，我们缩短了URL 以便于大家连接 |
-| 2026-02-13 |  1.0.2  | 增加了麦乐送点餐与积分兑换券场景系列Tools             |
+| 2026-02-13 |  1.0.2  | 增加了麦乐送点餐与积分兑换券场景的Tools             |
 
 ---
 
