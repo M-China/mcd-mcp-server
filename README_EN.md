@@ -19,16 +19,15 @@
 - **[2026-01] `Feature`:** We have added the "Food Nutrition Information List" tool, allowing users to query nutritional data for common McDonald's menu items, including calories and nutrition information. [View Tool Details](#4-tools)
 - **[2025-12] `Release`:** We released McDonald's MCP Server version 1.0.0, providing activity calendar queries and MaiMaiSheng coupon claiming features. Try it now! See the [Quick Start](#2-quick-start) section below for integration tutorials.
 
+---
+
 # 1. Apply for MCP Token
-
-## McDonald's Open Platform URL: [McDonald's Open Platform](https://open.mcd.cn/mcp)
-
 - **Step 1:** Click the **[Login]** button in the top right corner.
-  <div class="img"><img src="https://img.mcd.cn/gallery/91178777592c9118.jpeg" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/710fd62e53df2584.png" alt="" width="1000" /></div>
 - **Step 2:** Redirect to the login page and verify using your mobile number.
   <div class="img"><img src="https://img.mcd.cn/gallery/c7b5d9e9cdd2c786.png" alt="" width="1000" /></div>
   Upon successful login, you will be redirected to the homepage, and the "Login" button will change to "Console".
-  <div class="img"><img src="https://img.mcd.cn/gallery/a854347bb1339ee1.jpeg" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/e25673658ac256f0.png" alt="" width="1000" /></div>
 - **Step 3:** Apply for MCP Token.\
   Click "Console" in the top right corner to open the console popup.\
   Click the "Activate" button to request your MCP Token.
@@ -40,7 +39,7 @@
 
 # 2. Quick Start
 > The following section describes how to integrate the MCP Server into an MCP Client to start using MCP features.\
-> McDonald's provides a remotely hosted MCP Server; users simply need to configure the access address and key in their MCP Client.
+> McDonald's China provides a remotely hosted MCP Server; users simply need to configure the access address and MCP Token in their MCP Client.
 
 
 ## 2.1 Access Address
@@ -55,7 +54,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 ## 2.3 MCP Configuration JSON Example:
 > For convenience, we provide a JSON configuration example.\
-> Copy the configuration below, replace **YOUR_MCP_TOKEN** with your actual key, and paste it into the MCP Server configuration of your MCP Client.
+> Copy the configuration below, replace **YOUR_MCP_TOKEN** with your actual MCP Token, and paste it into the MCP Server configuration of your MCP Client.
 ``` json
 {
   "mcpServers": {
@@ -71,7 +70,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ```
 
 ## 2.4 Important Notes:
-> - ⚠️ The current MCP Server only supports MCP **Version 2025-06-18** and earlier.
+> - ⚠️ MCP Server currently only supports MCP **Version 2025-06-18** and earlier.
 > - Each Token allows a maximum of 600 requests per minute. Exceeding this limit will return a 429 error code. Please manage your request frequency reasonably.
 > - Please ensure your MCP Client supports the Streamable HTTP protocol.
 > - Please keep your MCP Token secure and avoid disclosing it to others.
@@ -96,7 +95,7 @@ After adding, please toggle the switch to enable it.
 
 <div class="img"><img src="https://img.mcd.cn/gallery/ade1966003d77e3b.png" alt="" width="1000" /></div>
 
-Congratulations! You have successfully set up MCP! Go to the chat window to start using it!
+Configuration complete. You can now use MCP features in the chat window.
 <div class="img"><img src="https://img.mcd.cn/gallery/16721f738e7f631e.png" alt="" width="1000" /></div>
 
 
@@ -146,6 +145,13 @@ Return to the chat dialog and select [Builder with MCP].
 You can now directly input requests in the dialog and let the AI call the tools for us.
 <div class="img"><img src="https://img.mcd.cn/gallery/4b82125a6902a916.png" alt="" width="1000" /></div>
 
+## 2.6 Error Code Description
+
+| code | Reason | Handling Suggestion |
+|:----:|:----:|:---------|
+| 401 | MCP Token is invalid, expired, or not provided | Check Authorization request header and MCP Token configuration |
+| 429 | Rate limit triggered (exceeds 600 requests/minute) | Reduce request frequency and control call intervals appropriately |
+
 # 3. Debugging Guide
 ## 3.1 Recommended MCP Clients
 
@@ -154,7 +160,7 @@ You can now directly input requests in the dialog and let the AI call the tools 
 | Cherry Studio |            https://docs.cherry-ai.com/advanced-basic/mcp             |
 |    Cursor     |       https://cursor.com/cn/docs/context/mcp#protocol-support        |
 |     Kiro      |                      https://kiro.dev/docs/mcp/                      |
-|     Trae      |           https://docs.trae.ai/ide/model-context-protocol            |
+|     Trae      |           https://docs.trae.cn/ide/model-context-protocol            |
 |    VSCode     | https://code.visualstudio.com/docs/copilot/customization/mcp-servers |
 
 ## 3.2 Recommended LLMs
@@ -188,7 +194,7 @@ As of February 12, 2026
     <tr>
       <td style="white-space: nowrap; text-align: center;">list-nutrition-foods</td>
       <td>Food Nutrition Information List</td>
-      <td>Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. It is useful when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content.</td>
+      <td>Retrieves the nutritional component data of common McDonald's menu items, including information on energy, protein, fat, carbohydrates, sodium, calcium, etc. Use this tool when users inquire about the calorie and nutritional content of McDonald's menu items, and when helping users assemble meals with a specified calorie content.</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">delivery-query-addresses</td>
@@ -201,7 +207,7 @@ As of February 12, 2026
       <td>Used when the user has no delivery address or needs to add a new delivery address, for creating a new delivery address.</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap; text-align: center;">query-usable-coupons</td>
+      <td style="white-space: nowrap; text-align: center;">query-store-coupons</td>
       <td>Query Available Coupons at Store</td>
       <td>Queries the list of coupons available at the current store, used for selecting available coupons when ordering.</td>
     </tr>
@@ -211,7 +217,7 @@ As of February 12, 2026
       <td>Queries the menu of meals available at the current store (categories, meal codes, tags, etc.), used for meal selection when ordering.</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap; text-align: center;">meal-detail</td>
+      <td style="white-space: nowrap; text-align: center;">query-meal-detail</td>
       <td>Query Meal Details</td>
       <td>Queries meal details based on meal code (combo composition, default selections, etc.), used for viewing combo contents.</td>
     </tr>
@@ -246,7 +252,7 @@ As of February 12, 2026
       <td>Automatically claims all currently available McDonald's "MaiMaiSheng" coupons. No need to specify coupons or couponIds; the system automatically claims all coupons the user is eligible for.</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap; text-align: center;">my-coupons</td>
+      <td style="white-space: nowrap; text-align: center;">query-my-coupons</td>
       <td>My Coupons Query</td>
       <td>Queries which coupons I currently have available. Just like opening the "My Coupons" page in the McDonald's App, seeing a list of all coupons valid for ordering.</td>
     </tr>
@@ -290,6 +296,7 @@ As of February 12, 2026
 > No parameters required.
 
 **Response Content:**
+> Note: To optimize LLM Token consumption, nutrition information is returned in a compact format (toon format) rather than standard JSON array format.
 
 Example:
 ``` json
@@ -477,7 +484,7 @@ Example:
 > Queries meal details based on the meal code returned from the menu list, including combo composition and other information. Use this tool when viewing meal details.
 
 **Important Note:**
-> Changing default selections is not supported in this version. More features will be available in future updates.
+> The current version (v1.0.2) does not support changing default selections. This feature will be available in future versions.
 
 **Input Parameters:**
 
@@ -607,7 +614,7 @@ Example:
   "data": {
     "orderId": "1030938730000733964700499858",
     "payId": "11940981078137585664",
-    "payH5Url": "https://m-sit.mcdchina.net/mcp/scanToPay?orderId=1030938730000733964700499858",
+    "payH5Url": "https://m.mcd.cn/mcp/scanToPay?orderId=1030779030000000000000000",
     "orderDetail": {
       "orderStatus": "Pending Payment",
       "storeName": "xxxxxx Store",
@@ -719,6 +726,7 @@ Example:
 | specifiedDate | Query activities for a specified date range (format: yyyy-MM-dd). Returns activities for three days around that date. Optional; defaults to querying current month's activities. No parameter needed to query today's activities. |
 
 **Response Content:**
+> Note: Activity content is marketing copy and may contain emojis and other marketing elements.
 
 Example:
 ``` markdown
@@ -847,7 +855,7 @@ Example:
 {
   "success": true,
   "code": 200,
-  "message": "Request successful",
+  "message": "Request succeeded",
   "datetime": "2026-02-09 13:58:34",
   "traceId": "713a18de45735089a3b8a0e8a7cf3e36",
   "data": {
@@ -879,7 +887,7 @@ Example:
 {
   "success": true,
   "code": 200,
-  "message": "Request successful",
+  "message": "Request succeeded",
   "datetime": "2026-02-09 13:59:12",
   "traceId": "43d1d331b103b29bd07a93d441409804",
   "data": [
@@ -887,7 +895,7 @@ Example:
       "spuName": "Medium Latte/Americano 500 Points",
       "spuId": 542,
       "skuId": 10997,
-      "spuImage": "https://cdn-test.mcdchina.net/ecs/b6e0616d94c1f733.png",
+      "spuImage": "https://img.mcd.cn/gallery/b6e0616d94c1f733.png",
       "point": "500",
       "shopId": 2,
       "selling": "",
@@ -917,7 +925,7 @@ Example:
 {
   "success": true,
   "code": 200,
-  "message": "Request successful",
+  "message": "Request succeeded",
   "datetime": "2026-02-09 14:03:20",
   "traceId": "801b027a09821d95f8a8d26337245ea7",
   "data": {
@@ -925,7 +933,7 @@ Example:
     "spuId": 542,
     "skuId": 10997,
     "images": [
-      "https://cdn-test.mcdchina.net/ecs/b6e0616d94c1f733.png"
+      "https://img.mcd.cn/gallery/b6e0616d94c1f733.png"
     ],
     "points": "500",
     "shopId": 2,
@@ -958,7 +966,7 @@ Example:
 {
   "success": true,
   "code": 200,
-  "message": "Request successful",
+  "message": "Request succeeded",
   "datetime": "2026-02-09 14:04:51",
   "traceId": "da02dd48f941d934e4765627acdc27f4",
   "data": {
@@ -998,7 +1006,7 @@ Example:
 {
   "success": true,
   "code": 200,
-  "message": "Request successful",
+  "message": "Request succeeded",
   "datetime": "2025-12-11 17:57:05",
   "traceId": "7b7255e6b4682f35dc0b4df39ffcf02d",
   "data": {

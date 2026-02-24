@@ -19,19 +19,18 @@
 - **[2026-01] `功能`:** 我们新增了“餐品营养信息列表”工具，用户可以查询麦当劳常见餐品的营养成分数据,咨询麦当劳餐品的热量、营养。[查看工具详情](#4-工具)
 - **[2025-12] `发布`:** 我们发布了麦当劳 MCP Server 1.0.0 版本，提供了活动日历查询和麦麦省领券功能，快来试试吧！接入教程请看下文[快速开始](#2-快速开始)部分
 
+---
+
 # 1. 申请 MCP Token
-
-## 麦当劳开放平台网址：[麦当劳开放平台](https://open.mcd.cn/mcp)
-
 - 第一步：点击右上角【登录】按钮
-  <div class="img"><img src="https://img.mcd.cn/gallery/91178777592c9118.jpeg" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/710fd62e53df2584.png" alt="" width="1000" /></div>
 - 第二步：跳转到登录页使用手机号验证登录
   <div class="img"><img src="https://img.mcd.cn/gallery/c7b5d9e9cdd2c786.png" alt="" width="1000" /></div>
   登录成功后跳转回首页，“登录”按钮变成控制台
-  <div class="img"><img src="https://img.mcd.cn/gallery/a854347bb1339ee1.jpeg" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/e25673658ac256f0.png" alt="" width="1000" /></div>
 - 第三步：申请 MCP Token\
   点击右上角“控制台”后，会弹出控制台弹窗\
-  点击激活按钮，申请MCP Token
+  点击激活按钮，申请 MCP Token
   <div class="img"><img src="https://img.mcd.cn/gallery/37434d0289646b80.png" alt="" width="1000" /></div>
 - 第四步：同意服务协议
   <div class="img"><img src="https://img.mcd.cn/gallery/62916ae518d0876d.png" alt="" width="1000" /></div>
@@ -40,7 +39,7 @@
 
 # 2. 快速开始
 > 下面介绍如何将 MCP Server 接入到 MCP Client 中，开始使用 MCP 功能。\
-> 麦当劳提供了远程托管的 MCP Server，用户只需在 MCP Client 中配置接入地址和token即可使用。
+> 麦当劳中国提供了远程托管的 MCP Server，用户只需在 MCP Client 中配置接入地址和 MCP Token 即可使用。
 
 
 ## 2.1 接入地址
@@ -55,7 +54,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 ## 2.3 MCP 配置 JSON 示例：
 > 为了方便使用，我们提供了JSON 配置示例。\
-> 复制下面的配置，替换 **YOUR_MCP_TOKEN** 为实际token，粘贴到 MCP Client 的 MCP Server 配置中即可。
+> 复制下面的配置，替换 **YOUR_MCP_TOKEN** 为实际 MCP Token，粘贴到 MCP Client 的 MCP Server 配置中即可。
 ``` json
 {
   "mcpServers": {
@@ -71,7 +70,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ```
 
 ## 2.4 注意事项：
-> - ⚠️当前 MCP Server 目前仅支持 MCP **Version 2025-06-18**及之前的版本。
+> - ⚠️MCP Server 当前仅支持 MCP **Version 2025-06-18** 及之前的版本。
 > - 每个 Token 每分钟最多允许 600 次请求，超过限制会返回 429 错误码，请合理控制请求频率。
 > - 请确保 MCP Client 支持 Streamable HTTP 协议。
 > - 请妥善保管 MCP Token，避免泄露给他人。
@@ -96,7 +95,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 <div class="img"><img src="https://img.mcd.cn/gallery/ade1966003d77e3b.png" alt="" width="1000" /></div>
 
-恭喜！你已经设置 MCP 成功啦！快去聊天窗口上开启使用吧！
+配置完成。现在可以在聊天窗口中使用 MCP 功能。
 <div class="img"><img src="https://img.mcd.cn/gallery/16721f738e7f631e.png" alt="" width="1000" /></div>
 
 
@@ -108,7 +107,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 <div class="img"><img src="https://img.mcd.cn/gallery/b4817eeb8c597384.png" alt="" width="1000" /></div>
 
-在打开的 mcp.json 文件中填入从上面复制的JSON内容，一定记得替换 YOUR_MCP_TOKEN 为实际token，点击【关闭】并选择【保存】
+在打开的 mcp.json 文件中填入从上面复制的JSON内容，一定记得替换 YOUR_MCP_TOKEN 为实际 MCP Token，点击【关闭】并选择【保存】
 
 <div class="img"><img src="https://img.mcd.cn/gallery/671f20806476f7f7.png" alt="" width="1000" /></div>
 
@@ -130,7 +129,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 <div class="img"><img src="https://img.mcd.cn/gallery/1b29297767cc5458.png" alt="" width="1000" /></div>
 <div class="img"><img src="https://img.mcd.cn/gallery/720beadfcd8c7573.png" alt="" width="1000" /></div>
 
-在打开的手动配置页面中填入从上面复制的JSON内容，一定记得替换YOUR_MCP_TOKEN 为实际token，点击【确认】
+在打开的手动配置页面中填入从上面复制的JSON内容，一定记得替换YOUR_MCP_TOKEN 为实际 MCP Token，点击【确认】
 
 <div class="img"><img src="https://img.mcd.cn/gallery/a532f0555f6d0497.png" alt="" width="1000" /></div>
 
@@ -146,6 +145,13 @@ Authorization: Bearer YOUR_MCP_TOKEN
 接下来就可以直接在对话框中输入需求，让 AI 为我们调用工具了
 <div class="img"><img src="https://img.mcd.cn/gallery/4b82125a6902a916.png" alt="" width="1000" /></div>
 
+## 2.6 错误码说明
+
+| code | 原因 | 处理建议 |
+|:----:|:----:|:---------|
+| 401 | MCP Token 无效、已过期或未提供 | 检查 Authorization 请求头和 MCP Token 配置 |
+| 429 | 触发限流（超过 600 次/分钟） | 降低请求频率，合理控制调用间隔 |
+
 # 3. 调试指南
 ## 3.1 MCP Client  推荐
 
@@ -155,12 +161,12 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | Cherry Studio |            https://docs.cherry-ai.com/advanced-basic/mcp             |
 |    Cursor     |       https://cursor.com/cn/docs/context/mcp#protocol-support        |
 |     Kiro      |                      https://kiro.dev/docs/mcp/                      |
-|     Trae      |           https://docs.trae.ai/ide/model-context-protocol            |
+|     Trae      |           https://docs.trae.cn/ide/model-context-protocol            |
 |    VSCode     | https://code.visualstudio.com/docs/copilot/customization/mcp-servers |
 
 ## 3.2 LLM 推荐
 
-截止 2026 年 2 月 12 日
+截至 2026 年 2 月 12 日
 
 |    厂商    |           型号           |
 |:--------:|:----------------------:|
@@ -189,7 +195,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
     <tr>
       <td style="white-space: nowrap; text-align: center;">list-nutrition-foods</td>
       <td>餐品营养信息列表</td>
-      <td>获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐时有用</td>
+      <td>获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息。当用户咨询麦当劳餐品的热量、营养，或需要帮助用户搭配指定热量套餐时使用此工具</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">delivery-query-addresses</td>
@@ -202,7 +208,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
       <td>当用户无可配送地址或需新增收货地址时使用，用于创建新的可配送地址</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap; text-align: center;">query-usable-coupons</td>
+      <td style="white-space: nowrap; text-align: center;">query-store-coupons</td>
       <td>查询用户在当前门店可用券</td>
       <td>查询用户在当前门店下可使用的优惠券列表，用于点餐时选择可用优惠</td>
     </tr>
@@ -212,7 +218,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
       <td>查询当前门店可售卖的餐品菜单（分类、餐品编码、标签等），用于点餐选品</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap; text-align: center;">meal-detail</td>
+      <td style="white-space: nowrap; text-align: center;">query-meal-detail</td>
       <td>查询餐品详情</td>
       <td>根据餐品编码查询餐品详情（套餐组成、默认选择等），用于查看套餐包含内容</td>
     </tr>
@@ -247,7 +253,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
       <td>自动领取麦麦省所有当前可用的麦当劳优惠券。无需指定具体的优惠券和couponId，系统会自动领取用户可领的所有券</td>
     </tr>
     <tr>
-      <td style="white-space: nowrap; text-align: center;">my-coupons</td>
+      <td style="white-space: nowrap; text-align: center;">query-my-coupons</td>
       <td>我的优惠券查询</td>
       <td>查询我有哪些可用的优惠券。就像打开麦当劳App的"我的优惠券"页面，能看到所有可以用来点餐的优惠券列表</td>
     </tr>
@@ -284,12 +290,13 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ### 4.2.1 餐品营养信息列表
 
 **描述：**
-> 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息，当用户咨询麦当劳餐品的热量、营养，帮助用户搭配指定热量套餐
+> 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息。当用户咨询麦当劳餐品的热量、营养，或需要帮助用户搭配指定热量套餐时使用此工具。
 
 **入参：**
 > 无需入参
 
 **响应内容：**
+> 注意：为优化 LLM Token 消耗，营养信息采用紧凑格式（toon 格式）返回，而非标准 JSON 数组格式。
 
 示例：
 ``` json
@@ -334,6 +341,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
   }
 }
 ```
+
 ### 4.2.3 新增配送地址
 
 **描述：**
@@ -474,10 +482,10 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ### 4.2.6 查询餐品详情
 
 **描述：**
->根据餐品列表中返回的餐品编码，可以查看套餐的组成等信息。当餐品详情时可以使用此工具
+>根据餐品列表中返回的餐品编码，可以查看套餐的组成等信息。当用户需要查看餐品详情时使用此工具。
 
 **重点注意：**
->本次不支持更换默认选择，更多功能请等待新版本更新。
+>当前版本（v1.0.2）暂不支持更换默认选择，该功能将在后续版本中提供。
 
 **入参：**
 
@@ -537,7 +545,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 | name | description |
 |------|-------------|
-| productCode | 商品编码，必填（如果用户使用优惠券，则productCode为券商品code）|
+| productCode | 餐品编码，必填（如果用户使用优惠券，则productCode为券商品code）|
 | quantity | 商品数量，必填 |
 | couponId | 优惠券ID，选填（如果用户要使用优惠券） |
 | couponCode | 优惠券编码，选填（如果用户要使用优惠券） |
@@ -589,7 +597,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 | name | description |
 |------|-------------|
-| productCode | 商品编码，必填（如果用户使用优惠券，则productCode为券商品code）|
+| productCode | 餐品编码，必填（如果用户使用优惠券，则productCode为券商品code）|
 | quantity | 商品数量，必填 |
 | couponId | 优惠券ID，选填（如果用户要使用优惠券） |
 | couponCode | 优惠券编码，选填（如果用户要使用优惠券） |
@@ -607,7 +615,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
   "data": {
     "orderId": "1030938730000733964700499858",
     "payId": "11940981078137585664",
-    "payH5Url": "https://m-sit.mcdchina.net/mcp/scanToPay?orderId=1030938730000733964700499858",
+    "payH5Url": "https://m.mcd.cn/mcp/scanToPay?orderId=1030779030000000000000000",
     "orderDetail": {
       "orderStatus": "待支付",
       "storeName": "xxxxxx门店",
@@ -719,6 +727,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | specifiedDate | 查询指定日期范围的活动(格式: yyyy-MM-dd)，返回该日期附近一共三天的活动，非必传，默认查询当前月的活动，查询今天的活动不需要入参 |
 
 **响应内容：**
+> 注意：活动内容为营销文案，可能包含表情符号等营销元素。
 
 示例：
 ``` markdown
@@ -885,7 +894,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
       "spuName": "中杯拿铁/美式500积分",
       "spuId": 542,
       "skuId": 10997,
-      "spuImage": "https://cdn-test.mcdchina.net/ecs/b6e0616d94c1f733.png",
+      "spuImage": "https://img.mcd.cn/gallery/b6e0616d94c1f733.png",
       "point": "500",
       "shopId": 2,
       "selling": "",
@@ -923,7 +932,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
     "spuId": 542,
     "skuId": 10997,
     "images": [
-      "https://cdn-test.mcdchina.net/ecs/b6e0616d94c1f733.png"
+      "https://img.mcd.cn/gallery/b6e0616d94c1f733.png"
     ],
     "points": "500",
     "shopId": 2,
@@ -1023,6 +1032,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server              |
 | 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool，我们缩短了URL 以便于大家连接 |
 | 2026-02-13 |  1.0.2  | 增加了麦乐送点餐与积分兑换券场景的Tools             |
+
 ---
 
 # 6. 注意事项：
