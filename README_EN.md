@@ -23,11 +23,11 @@
 
 # 1. Apply for MCP Token
 - **Step 1:** Click the **[Login]** button in the top right corner.
-  <div class="img"><img src="https://img.mcd.cn/gallery/710fd62e53df2584.png" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/91178777592c9118.jpeg" alt="" width="1000" /></div>
 - **Step 2:** Redirect to the login page and verify using your mobile number.
   <div class="img"><img src="https://img.mcd.cn/gallery/c7b5d9e9cdd2c786.png" alt="" width="1000" /></div>
   Upon successful login, you will be redirected to the homepage, and the "Login" button will change to "Console".
-  <div class="img"><img src="https://img.mcd.cn/gallery/e25673658ac256f0.png" alt="" width="1000" /></div>
+  <div class="img"><img src="https://img.mcd.cn/gallery/a854347bb1339ee1.jpeg" alt="" width="1000" /></div>
 - **Step 3:** Apply for MCP Token.\
   Click "Console" in the top right corner to open the console popup.\
   Click the "Activate" button to request your MCP Token.
