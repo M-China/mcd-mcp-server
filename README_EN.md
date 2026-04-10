@@ -12,9 +12,10 @@
 
 **What is McDonald's MCP Service?**
 - McDonald's MCP Service is a data interaction interface service that complies with the Model Context Protocol (MCP) standard, provided by McDonald's China for use in mainland China (excluding Hong Kong, Macau, and Taiwan).
-- McDonald's MCP Service now covers McDelivery ordering, points redemption vouchers, activity calendar queries, and other business scenarios. More practical tools are under continuous development and will be launched soon.
+- McDonald's MCP Service now covers McDelivery ordering, in-store pickup, group meals, points redemption vouchers, activity calendar queries, and other business scenarios. More practical tools are under continuous development and will be launched soon.
 
 # News
+- **[2026-04] `Feature`:** We have launched "In-Store Pickup" and "Group Meal" ordering capabilities, added a nearby store query tool, and upgraded multiple ordering tools to support multi-scenario ordering. [View Tool Details](#4-tools)
 - **[2026-02] `Feature`:** We have added "McDelivery Ordering" and "Points Redemption Vouchers" feature modules, supporting complete food delivery and points redemption services. [View Tool Details](#4-tools)
 - **[2026-01] `Feature`:** We have added the "Food Nutrition Information List" tool, allowing users to query nutritional data for common McDonald's menu items, including calories and nutrition information. [View Tool Details](#4-tools)
 - **[2025-12] `Release`:** We released McDonald's MCP Server version 1.0.0, providing activity calendar queries and MaiMaiSheng coupon claiming features. Try it now! See the [Quick Start](#2-quick-start) section below for integration tutorials.
@@ -207,6 +208,11 @@ As of February 12, 2026
       <td>Used when the user has no delivery address or needs to add a new delivery address, for creating a new delivery address.</td>
     </tr>
     <tr>
+      <td style="white-space: nowrap; text-align: center;">query-nearby-stores</td>
+      <td>Query Nearby Stores</td>
+      <td>Queries McDonald's restaurants near the user's provided address.</td>
+    </tr>
+    <tr>
       <td style="white-space: nowrap; text-align: center;">query-store-coupons</td>
       <td>Query Available Coupons at Store</td>
       <td>Queries the list of coupons available at the current store, used for selecting available coupons when ordering.</td>
@@ -228,8 +234,8 @@ As of February 12, 2026
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">create-order</td>
-      <td>Create Delivery Order</td>
-      <td>Creates a delivery order based on store information, delivery address, and item list, returns order details and payment link.</td>
+      <td>Create Order</td>
+      <td>Creates an order based on store information, dining method, item list, and returns order details and payment link.</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-order</td>
@@ -311,10 +317,13 @@ Example:
 ### 4.2.2 Get User Delivery Address List
 
 **Description:**
-> Queries the user's created delivery address list. Use this tool when the user has a McDonald's ordering need.
+> Queries the user's created delivery address list. Use this tool when the user has a McDelivery or group meal ordering need. Only for delivery scenarios including McDelivery and corporate group meals.
 
 **Input Parameters:**
-> No parameters required.
+
+| name | description |
+|------|-------------|
+| beType | Required. McDelivery (beType=2), Group Meal (beType=6) |
 
 **Response Content:**
 
@@ -344,18 +353,19 @@ Example:
 ### 4.2.3 Add Delivery Address
 
 **Description:**
-> Used when the user has no delivery address or the current list does not contain the desired delivery address, allowing the user to add a new delivery address.
+> Used when the user has no delivery address or the current list does not contain the desired delivery address, allowing the user to add a new delivery address. Only for delivery scenarios including McDelivery and corporate group meals.
 
 **Input Parameters:**
 
 | name | description |
 |------|-------------|
-| city | City name, required. e.g. `Nanjing` |
-| contactName | Contact name, required. e.g. `Li Ming` |
+| city | City name, required. Must be obtained from user input, e.g. `Nanjing` |
+| contactName | Contact name, required. Must be obtained from user input, e.g. `Li Ming` |
 | gender | Gender, optional. e.g. `Mr.`, `Ms.` |
-| phone | Contact phone number, required. 11-digit mobile number, e.g. `16666666666` |
-| address | Delivery address, required. e.g. `Qingzhuyuan Building 9` |
-| addressDetail | Delivery address unit/room number, required. e.g. `Unit 2, Room 508` |
+| phone | Contact phone number, required. Must be obtained from user input, 11-digit mobile number, e.g. `16666666666` |
+| address | Delivery address, required. Must be obtained from user input, e.g. `Qingzhuyuan Building 9` |
+| addressDetail | Delivery address unit/room number, required. Must be obtained from user input, e.g. `Unit 2, Room 508` |
+| beType | Required. McDelivery (beType=2), Group Meal (beType=6) |
 
 **Response Content:**
 
@@ -378,17 +388,63 @@ Example:
   }
 }
 ```
-### 4.2.4 Query Available Coupons at Store
+### 4.2.4 Query Nearby Stores
 
 **Description:**
-> Queries coupons available to the user at the current store. Use this tool when the user asks what coupons are currently available.
+> Queries McDonald's restaurants near the user's provided address. Use this tool when the user wants in-store pickup, dine-in, or wants to find a nearby McDonald's restaurant.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| searchType | Required. 1: Query favorites, 2: Search by location. Default: 1 |
+| beType | Required. Default: 1 (in-store) |
+| city | City, required only when searchType=2 |
+| keyword | Location keyword, required only when searchType=2 |
+
+**Response Content:**
+
+Example:
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-02-09 14:44:29",
+    "traceId": "341e2dce2af4a61497b52097125a8a77",
+    "data": [
+        {
+            "storeCode": "1",
+            "storeName": "xxxx",
+            "beCode": "",
+            "address": "",
+            "distance": ""
+        },
+        {
+            "storeCode": "2",
+            "storeName": "xxxx",
+            "beCode": "",
+            "address": "",
+            "distance": ""
+        }
+    ]
+}
+```
+### 4.2.5 Query Available Coupons at Store
+
+**Description:**
+> Queries coupons available to the user at the current store and current pickup method. Use this tool when the user asks what coupons are currently available at the store.
 
 **Input Parameters:**
 
 | name | description |
 |------|-------------|
 | storeCode | Store code, required |
-| beCode | BE code (brand extension), required |
+| beCode | BE code |
+| orderType | Required. In-store: orderType=1, Delivery: orderType=2 |
+
+> In-store pickup: orderType=1 && beCode=null\
+> Delivery: orderType=2 && beCode from delivery-query-address
 
 **Response Content:**
 
@@ -416,7 +472,7 @@ Example:
   ]
 }
 ```
-### 4.2.5 Query Store Menu List
+### 4.2.6 Query Store Menu List
 
 **Description:**
 > Queries the list of meals available at the current store. Use this tool when the user wants to view the store menu or place an order.
@@ -426,7 +482,11 @@ Example:
 | name | description |
 |------|-------------|
 | storeCode | Store code, required |
-| beCode | BE code (brand extension), required |
+| beCode | BE code |
+| orderType | Required. In-store: orderType=1, Delivery: orderType=2 |
+
+> In-store pickup: orderType=1 && beCode=null\
+> Delivery: orderType=2 && beCode from delivery-query-address
 
 **Response Content:**
 
@@ -478,13 +538,13 @@ Example:
   }
 }
 ```
-### 4.2.6 Query Meal Details
+### 4.2.7 Query Meal Details
 
 **Description:**
 > Queries meal details based on the meal code returned from the menu list, including combo composition and other information. Use this tool when viewing meal details.
 
 **Important Note:**
-> The current version (v1.0.2) does not support changing default selections. This feature will be available in future versions.
+> The current version (v1.0.3) does not support changing items within a combo. This feature will be available in future versions.
 
 **Input Parameters:**
 
@@ -492,7 +552,11 @@ Example:
 |------|-------------|
 | code | Meal code, required |
 | storeCode | Store code |
-| beCode | BE code (Business Entity Code), required |
+| beCode | BE code |
+| orderType | Required |
+
+> In-store pickup: orderType=1 && beCode=null\
+> Delivery: orderType=2 && beCode from delivery-query-address
 
 **Response Content:**
 
@@ -527,7 +591,7 @@ Example:
   }
 }
 ```
-### 4.2.7 Calculate Item Price
+### 4.2.8 Calculate Item Price
 
 **Description:**
 > Calculates the price of items and discounts for the user's purchase. Use this tool when the user asks about the price of an item or a combination of items.
@@ -536,8 +600,9 @@ Example:
 
 | name | description |
 |------|-------------|
-| storeCode | Store code (obtained from `delivery-query-addresses`) |
-| beCode | BE code (brand extension, obtained from `delivery-query-addresses`) |
+| storeCode | Store code, required |
+| beCode | BE code |
+| orderType | Required. In-store: orderType=1, Delivery (McDelivery & Group Meal): orderType=2 |
 | items | Item list (array) |
 
 `items` field structure:
@@ -546,8 +611,11 @@ Example:
 |------|-------------|
 | productCode | Product code, required (if the user uses a coupon, productCode is the coupon product code) |
 | quantity | Product quantity, required |
-| couponId | Coupon ID, optional (if the user wants to use a coupon) |
-| couponCode | Coupon code, optional (if the user wants to use a coupon) |
+| couponId | Coupon ID, required when user wants to use a coupon |
+| couponCode | Coupon code, required when user wants to use a coupon |
+
+> In-store pickup: orderType=1 && beCode=null\
+> Delivery: orderType=2 && beCode from delivery-query-address
 
 **Response Content:**
 
@@ -575,21 +643,26 @@ Example:
         "originalSubtotal": 1600,
         "subtotal": 1600
       }
-    ]
+    ],
+    "takeWayList": [],
+    "mealAssistanceList": []
   }
 }
 ```
-### 4.2.8 Create Delivery Order
+### 4.2.9 Create Order
 
 **Description:**
-> Creates a delivery order. Use this tool when the user wants to place an order.
+> Creates an order. Use this tool when the user wants to place an order or purchase selected items.
 
 **Input Parameters:**
 
 | name | description |
 |------|-------------|
-| storeCode | Store code (obtained from `delivery-query-addresses`) |
-| beCode | BE code (brand extension, obtained from `delivery-query-addresses`) |
+| storeCode | Store code |
+| beCode | BE code |
+| addressId | Required for delivery scenarios |
+| takeWayCode | Required for in-store scenarios, obtained from the calculate-price tool |
+| orderType | Required. In-store: orderType=1, Delivery (McDelivery & Group Meal): orderType=2 |
 | items | Item list (array) |
 
 `items` field structure:
@@ -598,8 +671,11 @@ Example:
 |------|-------------|
 | productCode | Product code, required (if the user uses a coupon, productCode is the coupon product code) |
 | quantity | Product quantity, required |
-| couponId | Coupon ID, optional (if the user wants to use a coupon) |
-| couponCode | Coupon code, optional (if the user wants to use a coupon) |
+| couponId | Coupon ID, required when user uses a coupon |
+| couponCode | Coupon code, required when user uses a coupon |
+
+> In-store pickup: orderType=1 && beCode=null\
+> Delivery: orderType=2 && beCode from delivery-query-address
 
 **Response Content:**
 
@@ -647,12 +723,24 @@ Example:
       "createTime": "2026-02-09 14:42:51",
       "deliveryPrice": "6",
       "realDeliveryPrice": "6",
-      "productPrice": "16"
+      "productPrice": "16",
+      "takeWay": "locker-in",
+      "pickupCode": "",
+      "lockerCode": "",
+      "mealAssistance": {
+        "code": "",
+        "name": "",
+        "items": [
+          {
+            "name": ""
+          }
+        ]
+      }
     }
   }
 }
 ```
-### 4.2.9 Query Order Details
+### 4.2.10 Query Order Details
 
 **Description:**
 > Queries order details. Use this tool when the user wants to check order status, order progress, or other order information.
@@ -705,7 +793,19 @@ Example:
     "createTime": "2026-02-09 14:42:51",
     "deliveryPrice": "6",
     "realDeliveryPrice": "6",
-    "productPrice": "16"
+    "productPrice": "16",
+    "takeWay": "locker-in",
+    "pickupCode": "",
+    "lockerCode": "",
+    "mealAssistance": {
+      "code": "",
+      "name": "",
+      "items": [
+        {
+          "name": ""
+        }
+      ]
+    }
   }
 }
 ```
@@ -1034,6 +1134,7 @@ Example:
 | 2025-12-09 |  1.0.0  | MaiMai Calendar and MaiMaiSheng Coupon MCP Server                                                        |
 | 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool, we shortened the URL for easier access and integration |
 | 2026-02-13 |  1.0.2  | Added McDelivery ordering and points redemption voucher tools                                            |
+| 2026-04-02 |  1.0.3  | Added in-store pickup (FC) and group meal ordering tools                                                 |
 
 ---
 

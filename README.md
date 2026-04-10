@@ -12,9 +12,10 @@
 
 **什么是麦当劳 MCP 服务?**
 - 麦当劳 MCP 服务是一个遵循 Model Context Protocol（MCP）标准的数据交互接口服务，由麦当劳中国提供，面向中国大陆地区（不含港澳台）使用。
-- 麦当劳MCP服务现已覆盖麦乐送点餐、积分兑换券、活动日历查询等业务场景。更多实用工具正在持续开发上线。
+- 麦当劳MCP服务现已覆盖麦乐送点餐、到店取餐、团餐、积分兑换券、活动日历查询等业务场景。更多实用工具正在持续开发上线。
 
 # 新闻
+- **[2026-04] `功能`:** 我们上线了"到店取餐"与"团餐"场景的点餐能力，新增了附近门店查询工具，并对多个点餐工具进行了升级以支持多场景下单。[查看工具详情](#4-工具)
 - **[2026-02] `功能`:** 我们新增了"麦乐送点餐"与"积分兑换券"功能模块，支持完整的外送点餐与积分兑换服务。[查看工具详情](#4-工具) 
 - **[2026-01] `功能`:** 我们新增了“餐品营养信息列表”工具，用户可以查询麦当劳常见餐品的营养成分数据,咨询麦当劳餐品的热量、营养。[查看工具详情](#4-工具)
 - **[2025-12] `发布`:** 我们发布了麦当劳 MCP Server 1.0.0 版本，提供了活动日历查询和麦麦省领券功能，快来试试吧！接入教程请看下文[快速开始](#2-快速开始)部分
@@ -208,6 +209,11 @@ Authorization: Bearer YOUR_MCP_TOKEN
       <td>当用户无可配送地址或需新增收货地址时使用，用于创建新的可配送地址</td>
     </tr>
     <tr>
+      <td style="white-space: nowrap; text-align: center;">query-nearby-stores</td>
+      <td>查询附近门店</td>
+      <td>查询用户提供地址附近的麦当劳餐厅</td>
+    </tr>
+    <tr>
       <td style="white-space: nowrap; text-align: center;">query-store-coupons</td>
       <td>查询用户在当前门店可用券</td>
       <td>查询用户在当前门店下可使用的优惠券列表，用于点餐时选择可用优惠</td>
@@ -229,8 +235,8 @@ Authorization: Bearer YOUR_MCP_TOKEN
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">create-order</td>
-      <td>创建外送订单</td>
-      <td>根据门店信息、配送地址、商品列表创建外送订单，返回订单详情与支付链接</td>
+      <td>创建订单</td>
+      <td>根据门店信息、就餐方式、商品列表等信息创建订单，返回订单详情与支付链接</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-order</td>
@@ -310,11 +316,13 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ```
 ### 4.2.2 获取用户可配送地址列表
 
-**描述：**
->查询用户已创建的配送地址列表。当用户有麦当劳点餐需求时使用此工具。
+**描述：**   
+> 查询用户已创建的配送地址列表。当用户有麦当劳外送（麦乐送）、团餐需求时使用该工具查询用户可配送的地址列表。仅用于包括麦乐送、企业团餐在内的外送场景。
 
-**入参：**
->无需入参
+**入参：**  
+| name | description |
+|------|-------------|
+| beType | 必填，麦乐送(beType=2)，团餐(beType=6) |
 
 **响应内容：**
 
@@ -345,18 +353,19 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ### 4.2.3 新增配送地址
 
 **描述：**
->用户无可配送地址或者当前列表内无用户期望的配送地址时，用户可以使用该工具新增配送地址。
+>用户无可配送地址或者当前列表内无用户期望的配送地址时，可以使用该工具新增配送地址。仅用于包括麦乐送、企业团餐在内的外送场景。
 
 **入参：**
 
 | name | description |
 |------|-------------|
-| city | 城市名称，必填。如 `南京市` |
-| contactName | 联系人姓名，必填。如 `李明` |
-| gender | 性别，非必传。如 `先生`、`女士` |
-| phone | 联系人电话号码，必填。类型为 11 位手机号，如 `16666666666` |
-| address | 配送地址，必填。如 `清竹园9号楼` |
-| addressDetail | 配送地址门牌号，必填。如 `2单元508` |
+| city | 城市名称，必填，必须从用户输入中获取实际城市名称，如"南京市" |
+| contactName | 联系人姓名，必填，必须从用户输入中获取实际联系人姓名，如"李明" |
+| gender | 性别，非必填，如"先生"、"女士" |
+| phone | 联系人电话号码，必填，必须从用户输入中获取实际电话号码，类型为11位纯数字，如"16666666666" |
+| address | 配送地址，必填，必须从用户输入中获取实际地址，如"清竹园9号楼" |
+| addressDetail | 配送地址门牌号，必填，必须从用户输入中获取实际门牌号，如"2单元508" |
+| beType | 必填，麦乐送(beType=2)，团餐(beType=6) |
 
 **响应内容：**
 
@@ -379,17 +388,64 @@ Authorization: Bearer YOUR_MCP_TOKEN
   }
 }
 ```
-### 4.2.4 查询用户在当前门店可用券
+### 4.2.4 查询附近可用门店
 
-**描述：**
->查询用户在当前门店可用的优惠券。当用户询问当前有哪些可以使用的优惠券时，可以使用该工具进行查询。
+**描述：**  
+> 查询用户提供地址附近的麦当劳餐厅。当用户希望想要到店取餐、堂食或希望寻找麦当劳餐厅时可以使用该工具查找位置附近的麦当劳门店
+
+**入参：**
+
+| name | description |
+|------|-------------|
+| searchType | 必填，1：查询收藏，2：按位置搜索，默认选中1 |
+| beType | 必填，默认1，到店 |
+| city | 城市，仅在searchType=2时必填 |
+| keyword | 位置关键词，仅在searchType=2时必填 |
+
+**响应内容：**
+
+示例：
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "请求成功",
+    "datetime": "2026-02-09 14:44:29",
+    "traceId": "341e2dce2af4a61497b52097125a8a77",
+    "data": [
+        {
+            "storeCode": "1",
+            "storeName": "xxxx",
+            "beCode": "",
+            "address": "",
+            "distance": ""
+        },
+        {
+            "storeCode": "2",
+            "storeName": "xxxx",
+            "beCode": "",
+            "address": "",
+            "distance": ""
+        }
+    ]
+}
+```
+### 4.2.5 查询用户当前门店下可用的优惠券列表
+
+**描述：**  
+> 查询用户在当前门店、当前取餐方式可用的优惠券。当用户询问当前门店、取餐方式有哪些可以使用的优惠券时，可以使用该工具进行查询。
+
 
 **入参：**
 
 | name | description |
 |------|-------------|
 | storeCode | 门店编码，必填 |
-| beCode | BE编码（brand extension），必填 |
+| beCode | BE编码  |
+| orderType | 必填，到店：orderType=1，外送：orderType=2 |
+
+>到店取餐场景: orderType=1 && beCode=null\
+>外送场景: orderType=2 && beCode 为 delivery-query-address 中的 beCode
 
 **响应内容：**
 
@@ -417,17 +473,22 @@ Authorization: Bearer YOUR_MCP_TOKEN
   ]
 }
 ```
-### 4.2.5 查询当前门店可售卖的餐品列表
+### 4.2.6 查询当前可售卖的餐品列表
 
-**描述：**
->查询当前门店可售餐品列表。当用户希望获取门店菜单或者点单时，可以调用这个工具获取当前门店可售的餐品。
+**描述：**  
+> 查询当前门店可售餐品列表。当用户希望获取门店菜单或者点单时，可以调用这个工具获取当前门店可售的餐品。
+
 
 **入参：**
 
 | name | description |
 |------|-------------|
 | storeCode | 门店编码，必填 |
-| beCode | BE编码（brand extension），必填 |
+| beCode | BE编码 |
+| orderType | 必填，到店：orderType=1，外送：orderType=2 |
+
+>到店取餐场景: orderType=1 && beCode=null\
+>外送场景: orderType=2 && beCode 为 delivery-query-address 中的 beCode
 
 **响应内容：**
 
@@ -479,13 +540,13 @@ Authorization: Bearer YOUR_MCP_TOKEN
   }
 }
 ```
-### 4.2.6 查询餐品详情
+### 4.2.7 查询餐品详情
 
 **描述：**
->根据餐品列表中返回的餐品编码，可以查看套餐的组成等信息。当用户需要查看餐品详情时使用此工具。
+> 根据餐品列表中返回的餐品编码，可以查看套餐的组成等信息。当用户需要查看餐品详情时使用此工具。 
 
 **重点注意：**
->当前版本（v1.0.2）暂不支持更换默认选择，该功能将在后续版本中提供。
+>当前版本（v1.0.3）暂不支持更换套餐内的单品，该功能将在后续版本中提供。
 
 **入参：**
 
@@ -493,7 +554,10 @@ Authorization: Bearer YOUR_MCP_TOKEN
 |------|-------------|
 | code | 餐品编码，必填 |
 | storeCode | 门店 code |
-| beCode | BE编码（brand extension），必填 |
+| beCode | BE编码 |
+| orderType | 必填 |
+>到店取餐场景: orderType=1 && beCode=null\
+>外送场景: orderType=2 && beCode 为 delivery-query-address 中的 beCode
 
 **响应内容：**
 
@@ -528,27 +592,32 @@ Authorization: Bearer YOUR_MCP_TOKEN
   }
 }
 ```
-### 4.2.7 商品价格计算
+### 4.2.8 商品价格计算
 
-**描述：**
->计算用户购买商品及优惠价格。当用户询问商品或商品组合的价格时，可以使用此工具。
+**描述：**  
+> 计算用户购买商品及优惠价格。当用户询问商品或商品组合的价格时，可以使用此工具获取订单价格信息。
+
 
 **入参：**
 
-| name | description                                           |
-|------|-------------------------------------------------------|
-| storeCode | 门店编码（从 `delivery-query-addresses` 获取）                 |
-| beCode | BE编码（brand extension，从 `delivery-query-addresses` 获取） |
-| items | 商品列表（数组）                                              |
+| name | description |
+|------|-------------|
+| storeCode | 门店编码, 必填 |
+| beCode | BE编码 |
+| orderType | 必填，到店：orderType=1，外送（麦乐送&团餐）：orderType=2 |
+| items | 商品列表（数组） |
 
 `items` 字段结构：
 
 | name | description |
 |------|-------------|
-| productCode | 餐品编码，必填（如果用户使用优惠券，则productCode为券商品code）|
+| productCode | 餐品编码，必填（如果用户使用优惠券，则productCode为券商品code） |
 | quantity | 商品数量，必填 |
-| couponId | 优惠券ID，选填（如果用户要使用优惠券） |
-| couponCode | 优惠券编码，选填（如果用户要使用优惠券） |
+| couponId | 优惠券ID，当用户要使用优惠券时必填） |
+| couponCode | 优惠券编码，当用户要使用优惠券时必填 |
+
+>到店取餐场景: orderType=1 && beCode=null\
+>外送场景: orderType=2 && beCode 为 delivery-query-address 中的 beCode
 
 **响应内容：**
 
@@ -576,22 +645,28 @@ Authorization: Bearer YOUR_MCP_TOKEN
         "originalSubtotal": 1600,
         "subtotal": 1600
       }
-    ]
+    ],
+    "takeWayList": [],
+    "mealAssistanceList": []
   }
 }
 ```
-### 4.2.8 创建外送订单
+### 4.2.9 创建订单
 
-**描述：**
->创建外送订单。当用户希望下单时可使用此工具。
+**描述：**  
+> 创建订单。当用户希望下单/购买选中商品时可以使用该工具进行下单。
+
 
 **入参：**
 
-| name | description                                           |
-|------|-------------------------------------------------------|
-| storeCode | 门店编码（从 `delivery-query-addresses` 获取）                 |
-| beCode | BE编码（brand extension，从 `delivery-query-addresses` 获取） |
-| items | 商品列表（数组）                                              |
+| name | description |
+|------|-------------|
+| storeCode | 门店编码 |
+| beCode | BE编码|
+| addressId | 外送场景下必填 |
+| takeWayCode | 到店场景下必填, 需要从 calculate-price 的价格计算工具中获取 |
+| orderType | 必填，到店：orderType=1，外送（麦乐送&团餐）：orderType=2 |
+| items | 商品列表（数组） |
 
 `items` 字段结构：
 
@@ -599,8 +674,12 @@ Authorization: Bearer YOUR_MCP_TOKEN
 |------|-------------|
 | productCode | 餐品编码，必填（如果用户使用优惠券，则productCode为券商品code）|
 | quantity | 商品数量，必填 |
-| couponId | 优惠券ID，选填（如果用户要使用优惠券） |
-| couponCode | 优惠券编码，选填（如果用户要使用优惠券） |
+| couponId | 优惠券ID，当用户使用优惠券时必填 |
+| couponCode | 优惠券编码，当用户使用优惠券时必填 |
+
+>到店取餐场景: orderType=1 && beCode=null\
+>外送场景: orderType=2 && beCode 为 delivery-query-address 中的 beCode
+
 
 **响应内容：**
 
@@ -648,14 +727,26 @@ Authorization: Bearer YOUR_MCP_TOKEN
       "createTime": "2026-02-09 14:42:51",
       "deliveryPrice": "6",
       "realDeliveryPrice": "6",
-      "productPrice": "16"
+      "productPrice": "16",
+      "takeWay": "locker-in",
+      "pickupCode": "",
+      "lockerCode": "",
+      "mealAssistance": {
+        "code": "",
+        "name": "",
+        "items": [
+          {
+            "name": ""
+          }
+        ]
+      }
     }
   }
 }
 ```
-### 4.2.9 查询订单详情
+### 4.2.10 查询订单详情
 
-**描述：**
+**描述：**  
 >查询订单详情。当用户希望查询订单状态、订单进度等信息时，可以使用该工具获取。
 
 **入参：**
@@ -706,7 +797,19 @@ Authorization: Bearer YOUR_MCP_TOKEN
     "createTime": "2026-02-09 14:42:51",
     "deliveryPrice": "6",
     "realDeliveryPrice": "6",
-    "productPrice": "16"
+    "productPrice": "16",
+    "takeWay": "locker-in",
+    "pickupCode": "",
+    "lockerCode": "",
+    "mealAssistance": {
+      "code": "",
+      "name": "",
+      "items": [
+        {
+          "name": ""
+        }
+      ]
+    }
   }
 }
 ```
@@ -1032,6 +1135,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server              |
 | 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool，我们缩短了URL 以便于大家连接 |
 | 2026-02-13 |  1.0.2  | 增加了麦乐送点餐与积分兑换券场景的Tools             |
+| 2026-04-02 |  1.0.3  | 增加了到店取餐与团餐场景的Tools              |
 
 ---
 
