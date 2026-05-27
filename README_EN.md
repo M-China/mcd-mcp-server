@@ -15,6 +15,7 @@
 - McDonald's MCP Service now covers McDelivery ordering, in-store pickup, group meals, points redemption vouchers, activity calendar queries, and other business scenarios. More practical tools are under continuous development and will be launched soon.
 
 # News
+- **[2026-05] `Feature`:** We have added "Points Redemption for Physical Goods", "Mall Order Queries" tools, and now support Drive-Through ordering and reservation functionality for all ordering scenarios. [View Tool Details](#4-tools)
 - **[2026-04] `Feature`:** We have launched "In-Store Pickup" and "Group Meal" ordering capabilities, added a nearby store query tool, and upgraded multiple ordering tools to support multi-scenario ordering. [View Tool Details](#4-tools)
 - **[2026-02] `Feature`:** We have added "McDelivery Ordering" and "Points Redemption Vouchers" feature modules, supporting complete food delivery and points redemption services. [View Tool Details](#4-tools)
 - **[2026-01] `Feature`:** We have added the "Food Nutrition Information List" tool, allowing users to query nutritional data for common McDonald's menu items, including calories and nutrition information. [View Tool Details](#4-tools)
@@ -200,12 +201,22 @@ As of February 12, 2026
     <tr>
       <td style="white-space: nowrap; text-align: center;">delivery-query-addresses</td>
       <td>Get User Delivery Address List</td>
-      <td>Queries the user's created delivery address list, used for selecting delivery addresses when ordering food delivery, and obtains corresponding store information (storeCode, beCode).</td>
+      <td>Queries the user's created delivery address list, used for selecting delivery addresses when ordering food delivery.</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">delivery-create-address</td>
       <td>Add Delivery Address</td>
       <td>Used when the user has no delivery address or needs to add a new delivery address, for creating a new delivery address.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">delivery-query-stores</td>
+      <td>Query Deliverable Stores</td>
+      <td>Queries stores that can deliver to the user's address in delivery scenarios (McDelivery and corporate group meals).</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-meal-assistance</td>
+      <td>Query Meal Assistance Services</td>
+      <td>Queries available meal assistance services at the store (corporate group meal scenarios only).</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-nearby-stores</td>
@@ -283,6 +294,21 @@ As of February 12, 2026
       <td>Uses points to redeem specified meal vouchers, completes points deduction and voucher issuance, returns redemption order number and voucher code information.</td>
     </tr>
     <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-create-order-physical</td>
+      <td>Points Redemption Physical Goods Order</td>
+      <td>Uses points to redeem physical goods, completes points verification, shipping address confirmation, points deduction and inventory reduction.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-order-list</td>
+      <td>Mall Order List Query</td>
+      <td>Queries orders purchased/redeemed in MaiMai Mall within the past year.</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-order-detail</td>
+      <td>Mall Order Detail Query</td>
+      <td>Queries detailed information of a MaiMai Mall order (payment points/amount, order status, etc.).</td>
+    </tr>
+    <tr>
       <td style="white-space: nowrap; text-align: center;">now-time-info</td>
       <td>Get Current Time Info</td>
       <td>Returns complete current time information, allowing the LLM to know the current date and time.</td>
@@ -317,13 +343,10 @@ Example:
 ### 4.2.2 Get User Delivery Address List
 
 **Description:**
-> Queries the user's created delivery address list. Use this tool when the user has a McDelivery or group meal ordering need. Only for delivery scenarios including McDelivery and corporate group meals.
+> Queries the user's created delivery address list. When the user says "I want to order McDonald's delivery" or "I want to eat McDonald's", this tool is used to query the user's deliverable address list.
 
 **Input Parameters:**
-
-| name | description |
-|------|-------------|
-| beType | Required. McDelivery (beType=2), Group Meal (beType=6) |
+> No input parameters required
 
 **Response Content:**
 
@@ -353,7 +376,7 @@ Example:
 ### 4.2.3 Add Delivery Address
 
 **Description:**
-> Used when the user has no delivery address or the current list does not contain the desired delivery address, allowing the user to add a new delivery address. Only for delivery scenarios including McDelivery and corporate group meals.
+> Used when the user has no delivery address or the current list does not contain the desired delivery address, allowing the user to add a new delivery address.
 
 **Input Parameters:**
 
@@ -365,7 +388,6 @@ Example:
 | phone | Contact phone number, required. Must be obtained from user input, 11-digit mobile number, e.g. `16666666666` |
 | address | Delivery address, required. Must be obtained from user input, e.g. `Qingzhuyuan Building 9` |
 | addressDetail | Delivery address unit/room number, required. Must be obtained from user input, e.g. `Unit 2, Room 508` |
-| beType | Required. McDelivery (beType=2), Group Meal (beType=6) |
 
 **Response Content:**
 
@@ -388,17 +410,119 @@ Example:
   }
 }
 ```
-### 4.2.4 Query Nearby Stores
+### 4.2.4 Query Deliverable Stores
 
 **Description:**
-> Queries McDonald's restaurants near the user's provided address. Use this tool when the user wants in-store pickup, dine-in, or wants to find a nearby McDonald's restaurant.
+> In delivery scenarios (including McDelivery and corporate group meals), after the user selects an address, queries stores that can deliver to the user's address based on the address ID.
 
 **Input Parameters:**
 
 | name | description |
 |------|-------------|
-| searchType | Required. 1: Query favorites, 2: Search by location. Default: 1 |
-| beType | Required. Default: 1 (in-store) |
+| addressId | User's selected address ID, required |
+| beType | Required. 2: McDelivery, 6: Group Meal |
+
+**Response Content:**
+
+Example:
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-04-28 11:32:39",
+    "traceId": "19df0dfba930e166f77437c85f8df037",
+    "data": [
+        {
+            "storeCode": "xxxxxx",
+            "beCode": "xxxx",
+            "storeName": "McDonald's xxxx Restaurant",
+            "reservation": true,
+            "reservationTimeOptions": [
+                {
+                    "date": "2026-04-29",
+                    "today": false,
+                    "reservationOptionText": "Breakfast(06:00-09:59)"
+                },
+                {
+                    "date": "2026-04-30",
+                    "today": false,
+                    "reservationOptionText": "Breakfast(06:00-09:59)"
+                }
+            ],
+            "businessStatus": true,
+            "businessStartTime": "00:00",
+            "businessEndTime": "23:59"
+        }
+    ]
+}
+```
+### 4.2.5 Query Meal Assistance Services
+
+**Description:**
+> Corporate group meal scenarios only. Queries available meal assistance services at the store.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| storeCode | Store code, required |
+| beCode | BE code, required |
+| beType | Business type, required. Only supports Group Meal beType=6 |
+| orderType | Order type, required. Only supports orderType=2 (delivery) |
+| reservationDate | Reservation time, optional. Format: yyyy-MM-dd HH:mm. Used to determine if meal assistance services are available at the reserved time |
+
+**Response Content:**
+
+Example:
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-04-28 11:34:00",
+    "traceId": "a8f4cc0361d377d9d68da56c4048c362",
+    "data": {
+        "mealAssistanceItems": [
+            {
+                "gmServiceCode": "GMSxxx",
+                "gmServiceName": "Fresh Express Delivery",
+                "serviceItems": ["On-time delivery & food warming"],
+                "selected": true,
+                "enable": true
+            },
+            {
+                "gmServiceCode": "GMS0xx",
+                "gmServiceName": "Personal Meal Service",
+                "serviceItems": ["Individual packaging & food warming", "Delivery to table/person"],
+                "enable": true
+            },
+            {
+                "gmServiceCode": "GMS0xx",
+                "gmServiceName": "Personal Table Setup",
+                "serviceItems": ["Individual packaging & food warming", "Food table setup", "Personal service"],
+                "enable": true
+            }
+        ],
+        "promotions": [
+            "Fresh Express: 22% off for 300+/26% off for 500+/30% off for 1000+/34% off for 2000+",
+            "Personal Meal: 12% off for 300+/16% off for 500+/20% off for 1000+/24% off for 2000+",
+            "Table Setup: 7% off for 300+/11% off for 500+/15% off for 1000+/19% off for 2000+"
+        ]
+    }
+}
+```
+### 4.2.6 Query Nearby Stores
+
+**Description:**
+> In-store scenarios. Queries stores where the user can place orders. The user needs to specify whether it's in-store pickup or Drive-Through. Only supports in-store pickup and Drive-Through scenarios.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| searchType | Required. 2: Search by location, 1: Search favorite restaurants. Default: 1 |
+| beType | Required. 1: In-store pickup, 5: Drive-Through (DT) |
 | city | City, required only when searchType=2 |
 | keyword | Location keyword, required only when searchType=2 |
 
@@ -410,27 +534,30 @@ Example:
     "success": true,
     "code": 200,
     "message": "Request succeeded",
-    "datetime": "2026-02-09 14:44:29",
-    "traceId": "341e2dce2af4a61497b52097125a8a77",
+    "datetime": "20",
     "data": [
         {
-            "storeCode": "1",
-            "storeName": "xxxx",
-            "beCode": "",
+            "storeCode": "xxxxxx",
+            "beCode": "xxxx",
+            "storeName": "McDonald's xxxx Restaurant",
             "address": "",
-            "distance": ""
-        },
-        {
-            "storeCode": "2",
-            "storeName": "xxxx",
-            "beCode": "",
-            "address": "",
-            "distance": ""
+            "distance": "",
+            "reservation": true,
+            "reservationTimeOptions": [
+                {
+                    "date": "2026-04-29",
+                    "today": false,
+                    "reservationOptionText": "Breakfast(06:00-09:59)"
+                }
+            ],
+            "businessStatus": true,
+            "businessStartTime": "00:00",
+            "businessEndTime": "23:59"
         }
     ]
 }
 ```
-### 4.2.5 Query Available Coupons at Store
+### 4.2.7 Query Available Coupons at Store
 
 **Description:**
 > Queries coupons available to the user at the current store and current pickup method. Use this tool when the user asks what coupons are currently available at the store.
@@ -440,11 +567,10 @@ Example:
 | name | description |
 |------|-------------|
 | storeCode | Store code, required |
-| beCode | BE code |
+| beCode | BE code (Business Entity Code) |
 | orderType | Required. In-store: orderType=1, Delivery: orderType=2 |
-
-> In-store pickup: orderType=1 && beCode=null\
-> Delivery: orderType=2 && beCode from delivery-query-address
+| beType | Required. Business type: 1: In-store pickup, 2: McDelivery, 5: Drive-Through (DT), 6: Corporate group meal |
+| reservationDate | Reservation time, required for reservation scenarios. Format: yyyy-MM-dd HH:mm |
 
 **Response Content:**
 
@@ -458,7 +584,7 @@ Example:
   "traceId": "0f694a844e393e6cb0717455d9229a24",
   "data": [
     {
-      "title": "Delivery coupon secondary voucher",
+      "title": "Delivery secondary coupon",
       "couponId": "xxxxxxxxxx",
       "couponCode": "xxxxxx",
       "tradeDateTime": "2025-04-21 23:23:00-2026-07-01 23:59:59",
@@ -472,7 +598,7 @@ Example:
   ]
 }
 ```
-### 4.2.6 Query Store Menu List
+### 4.2.8 Query Store Menu List
 
 **Description:**
 > Queries the list of meals available at the current store. Use this tool when the user wants to view the store menu or place an order.
@@ -482,11 +608,10 @@ Example:
 | name | description |
 |------|-------------|
 | storeCode | Store code, required |
-| beCode | BE code |
+| beCode | BE code (Business Entity Code) |
 | orderType | Required. In-store: orderType=1, Delivery: orderType=2 |
-
-> In-store pickup: orderType=1 && beCode=null\
-> Delivery: orderType=2 && beCode from delivery-query-address
+| beType | Required. Business type: 1: In-store pickup, 2: McDelivery, 5: Drive-Through (DT), 6: Corporate group meal |
+| reservationDate | Reservation time, required for reservation scenarios. Format: yyyy-MM-dd HH:mm |
 
 **Response Content:**
 
@@ -508,10 +633,6 @@ Example:
             "tags": []
           },
           {
-            "code": "9900008169",
-            "tags": []
-          },
-          {
             "code": "920215",
             "tags": [
               "Half price for 2nd item"
@@ -529,16 +650,12 @@ Example:
       "9900008139": {
         "name": "DC Combo Test",
         "currentPrice": "14"
-      },
-      "9900008169": {
-        "name": "Double Deep Sea Cod Burger",
-        "currentPrice": "25"
       }
     }
   }
 }
 ```
-### 4.2.7 Query Meal Details
+### 4.2.9 Query Meal Details
 
 **Description:**
 > Queries meal details based on the meal code returned from the menu list, including combo composition and other information. Use this tool when viewing meal details.
@@ -552,46 +669,45 @@ Example:
 |------|-------------|
 | code | Meal code, required |
 | storeCode | Store code |
-| beCode | BE code |
-| orderType | Required |
-
-> In-store pickup: orderType=1 && beCode=null\
-> Delivery: orderType=2 && beCode from delivery-query-address
+| beCode | BE code (Business Entity Code) |
+| orderType | Required. In-store: orderType=1, Delivery: orderType=2 |
+| beType | Required. Business type: 1: In-store pickup, 2: McDelivery, 5: Drive-Through (DT), 6: Corporate group meal |
+| reservationDate | Reservation time, required for reservation scenarios. Format: yyyy-MM-dd HH:mm |
 
 **Response Content:**
 
 Example:
 ```json
 {
-  "success": true,
-  "code": 200,
-  "message": "Request succeeded",
-  "datetime": "2026-02-09 14:37:19",
-  "traceId": "21de60d22eea026cae0428f714359e2c",
-  "data": {
-    "code": "9900008139",
-    "price": "14",
-    "rounds": [
-      {
-        "id": 1,
-        "name": "Hamburger",
-        "quantity": 1,
-        "maxQuantity": 1,
-        "minQuantity": 1,
-        "choices": [
-          {
-            "code": "1000",
-            "name": "Hamburger-pool1",
-            "quantity": 1,
-            "maxQuantity": -1
-          }
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-02-09 14:37:19",
+    "traceId": "21de60d22eea026cae0428f714359e2c",
+    "data": {
+        "code": "9900008139",
+        "price": "14",
+        "rounds": [
+            {
+                "id": 1,
+                "name": "Hamburger",
+                "quantity": 1,
+                "maxQuantity": 1,
+                "minQuantity": 1,
+                "choices": [
+                    {
+                        "code": "1000",
+                        "name": "Hamburger-pool1",
+                        "quantity": 1,
+                        "maxQuantity": -1
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 }
 ```
-### 4.2.8 Calculate Item Price
+### 4.2.10 Calculate Item Price
 
 **Description:**
 > Calculates the price of items and discounts for the user's purchase. Use this tool when the user asks about the price of an item or a combination of items.
@@ -602,20 +718,20 @@ Example:
 |------|-------------|
 | storeCode | Store code, required |
 | beCode | BE code |
-| orderType | Required. In-store: orderType=1, Delivery (McDelivery & Group Meal): orderType=2 |
+| orderType | Required. In-store: orderType=1, Delivery: orderType=2 |
+| beType | Required. Business type: 1: In-store pickup, 2: McDelivery, 5: Drive-Through (DT), 6: Corporate group meal |
+| reservationDate | Reservation time, required for reservation scenarios. Format: yyyy-MM-dd HH:mm |
+| gmServiceCode | Required for corporate group meal scenarios. Meal assistance service code |
 | items | Item list (array) |
 
 `items` field structure:
 
 | name | description |
 |------|-------------|
-| productCode | Product code, required (if the user uses a coupon, productCode is the coupon product code) |
+| productCode | Product code, required |
 | quantity | Product quantity, required |
-| couponId | Coupon ID, required when user wants to use a coupon |
-| couponCode | Coupon code, required when user wants to use a coupon |
-
-> In-store pickup: orderType=1 && beCode=null\
-> Delivery: orderType=2 && beCode from delivery-query-address
+| couponId | Coupon ID, optional (when user wants to use a coupon) |
+| couponCode | Coupon code, optional (when user wants to use a coupon) |
 
 **Response Content:**
 
@@ -649,7 +765,7 @@ Example:
   }
 }
 ```
-### 4.2.9 Create Order
+### 4.2.11 Create Order
 
 **Description:**
 > Creates an order. Use this tool when the user wants to place an order or purchase selected items.
@@ -658,24 +774,23 @@ Example:
 
 | name | description |
 |------|-------------|
-| storeCode | Store code |
-| beCode | BE code |
+| storeCode | Store code, required |
+| beCode | BE code, required |
 | addressId | Required for delivery scenarios |
 | takeWayCode | Required for in-store scenarios, obtained from the calculate-price tool |
-| orderType | Required. In-store: orderType=1, Delivery (McDelivery & Group Meal): orderType=2 |
+| beType | Required. Business type: 1: In-store pickup, 2: McDelivery, 5: Drive-Through (DT), 6: Corporate group meal |
+| reservationDate | Reservation time, required for reservation scenarios. Format: yyyy-MM-dd HH:mm |
+| gmServiceCode | Required for corporate group meal scenarios. Meal assistance service code |
 | items | Item list (array) |
 
 `items` field structure:
 
 | name | description |
 |------|-------------|
-| productCode | Product code, required (if the user uses a coupon, productCode is the coupon product code) |
+| productCode | Product code, required |
 | quantity | Product quantity, required |
 | couponId | Coupon ID, required when user uses a coupon |
 | couponCode | Coupon code, required when user uses a coupon |
-
-> In-store pickup: orderType=1 && beCode=null\
-> Delivery: orderType=2 && beCode from delivery-query-address
 
 **Response Content:**
 
@@ -690,7 +805,7 @@ Example:
   "data": {
     "orderId": "1030938730000733964700499858",
     "payId": "11940981078137585664",
-    "payH5Url": "https://m.mcd.cn/mcp/scanToPay?orderId=1030779030000000000000000",
+    "payH5Url": "https://m.mcd.cn/mcp/scanToPay?orderId=1030938730000733964700499858",
     "orderDetail": {
       "orderStatus": "Pending Payment",
       "storeName": "xxxxxx Store",
@@ -740,7 +855,7 @@ Example:
   }
 }
 ```
-### 4.2.10 Query Order Details
+### 4.2.12 Query Order Details
 
 **Description:**
 > Queries order details. Use this tool when the user wants to check order status, order progress, or other order information.
@@ -756,62 +871,61 @@ Example:
 Example:
 ```json
 {
-  "success": true,
-  "code": 200,
-  "message": "Request succeeded",
-  "datetime": "2026-02-09 14:44:29",
-  "traceId": "341e2dce2af4a61497b52097125a8a77",
-  "data": {
-    "orderId": "1030938730000733964700499858",
-    "orderStatus": "Pending Payment",
-    "storeName": "xxxxx Store",
-    "orderProductList": [
-      {
-        "productName": "DC Combo Test",
-        "quantity": 1,
-        "price": "16",
-        "comboItemList": [
-          {
-            "itemName": "Hamburger-pool1 with extra cream (add)",
-            "itemQuantity": 1
-          }
-        ]
-      }
-    ],
-    "totalAmount": "22",
-    "realTotalAmount": "22",
-    "totalDiscountAmount": "0",
-    "couponList": [],
-    "deliveryInfo": {
-      "deliveryType": "Deliver Now",
-      "deliveryAddress": "xxxx Community - xx Building",
-      "addressDetail": "xxx Room",
-      "customerNickname": "<name>",
-      "mobilePhone": "152****6666",
-      "expectDeliveryTime": ""
-    },
-    "createTime": "2026-02-09 14:42:51",
-    "deliveryPrice": "6",
-    "realDeliveryPrice": "6",
-    "productPrice": "16",
-    "takeWay": "locker-in",
-    "pickupCode": "",
-    "lockerCode": "",
-    "mealAssistance": {
-      "code": "",
-      "name": "",
-      "items": [
-        {
-          "name": ""
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-02-09 14:44:29",
+    "traceId": "341e2dce2af4a61497b52097125a8a77",
+    "data": {
+        "orderId": "1030938730000733964700499858",
+        "orderStatus": "Pending Payment",
+        "storeName": "xxxxx Store",
+        "orderProductList": [
+            {
+                "productName": "DC Combo Test",
+                "quantity": 1,
+                "price": "16",
+                "comboItemList": [
+                    {
+                        "itemName": "Hamburger-pool1 with extra cream (add)",
+                        "itemQuantity": 1
+                    }
+                ]
+            }
+        ],
+        "totalAmount": "22",
+        "realTotalAmount": "22",
+        "totalDiscountAmount": "0",
+        "couponList": [],
+        "deliveryInfo": {
+            "deliveryType": "Deliver Now",
+            "deliveryAddress": "xxxx Community - xx Building",
+            "addressDetail": "xxx Room",
+            "customerNickname": "<name>",
+            "mobilePhone": "152****6666",
+            "expectDeliveryTime": ""
+        },
+        "createTime": "2026-02-09 14:42:51",
+        "deliveryPrice": "6",
+        "realDeliveryPrice": "6",
+        "productPrice": "16",
+        "takeWay": "locker-in",
+        "pickupCode": "",
+        "lockerCode": "",
+        "mealAssistance": {
+            "code": "",
+            "name": "",
+            "items": [
+                {
+                    "name": ""
+                }
+            ]
         }
-      ]
     }
-  }
 }
 ```
 
 ---
-
 ## 4.3 MaiMai Calendar
 
 ### 4.3.1 Campaign Calendar Query Tool
@@ -932,12 +1046,10 @@ Total 1 available coupon
 - **Claimed Time**: Received today
 - **Tags**: In-store only, Delivery only
 
-<img src="https://mcd-portal-prod-cos1-1300270282.cos.ap-shanghai.myqcloud.com/campaign/prod/campaign-offer/coupon/66f226e438714697b9f15d1a753d91ba/%E5%A4%A7%E8%96%AF%E6%9D%A1.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDCD6mEcX25tVrjNxiPvEICas0uXyBKIBs%26q-sign-time%3D1763363214%3B1921043214%26q-key-time%3D1763363214%3B1921043214%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D59b757fb6a863e8debfcdce8e595bf268d9c0cb9" alt="Wukong Premium Drink Free Coupon 0411" height="300" width="auto">
+<img src="https://img.mcd.cn/cms/images/example.jpg" alt="Coupon Image" height="300" width="auto">
 
 ```
-
 ---
-
 ## 4.5 MaiMai Mall
 
 ### 4.5.1 My Points Query
@@ -975,10 +1087,13 @@ Example:
 ### 4.5.2 Points Redemption Product List
 
 **Description:**
-> Queries meal vouchers that can be redeemed with points in the MaiMai Mall (excluding physical items or third-party codes redeemable with points). Use this tool when users inquire about what product vouchers can be redeemed with points.
+> Queries products that can be redeemed with points in the MaiMai Mall (excluding third-party codes redeemable with points). Use this tool when users inquire about what products can be redeemed with points.
 
 **Input Parameters:**
-> No parameters required.
+
+| name | description |
+|------|-------------|
+| catRuleIds | Category filter for points redemption products, multiple values separated by commas. Optional, String type. Vouchers & physical goods: catRuleIds=1>4,2 |
 
 **Response Content:**
 
@@ -994,7 +1109,6 @@ Example:
     {
       "spuName": "Medium Latte/Americano 500 Points",
       "spuId": 542,
-      "skuId": 10997,
       "spuImage": "https://img.mcd.cn/gallery/b6e0616d94c1f733.png",
       "point": "500",
       "shopId": 2,
@@ -1009,8 +1123,7 @@ Example:
 ### 4.5.3 Points Redemption Product Details
 
 **Description:**
-Queries detailed information about product vouchers that can be redeemed with points.
-Use this tool when users want to learn more about a specific product voucher (such as usage method, validity period, etc.).
+> Queries detailed information about product vouchers that can be redeemed with points. Use this tool when users want to learn more about a specific product voucher (such as usage method, validity period, etc.).
 
 **Input Parameters:**
 
@@ -1031,18 +1144,30 @@ Example:
   "data": {
     "spuName": "Medium Latte/Americano 500 Points",
     "spuId": 542,
-    "skuId": 10997,
     "images": [
       "https://img.mcd.cn/gallery/b6e0616d94c1f733.png"
     ],
-    "points": "500",
     "shopId": 2,
-    "extTradePrice": "7",
     "selling": "",
     "note": "note",
     "detail": "detail",
     "upDate": "2026-02-02 00:00:00",
-    "downDate": "2026-04-30 23:59:59"
+    "downDate": "2026-04-30 23:59:59",
+    "skuList": [
+      {
+        "skuId": 10997,
+        "points": "500",
+        "extTradePrice": "7",
+        "specList": [
+          {
+            "specMain": "Spec Name",
+            "specItem": "Spec Value"
+          }
+        ]
+      }
+    ],
+    "categoryRuleId": "2>9",
+    "spuCategory": "2"
   }
 }
 ```
@@ -1087,6 +1212,157 @@ Example:
 }
 ```
 
+### 4.5.5 Points Redemption Physical Goods Order
+
+**Description:**
+> Supports users redeeming physical goods with points, completing points verification, shipping address confirmation, points deduction and inventory reduction. Use this tool when users need to redeem physical goods with points.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| skuId | The product skuId selected by the user from the points redemption product list, representing the specific specification ID. Required, Long type. |
+| count | Quantity of items the user wants to redeem. Optional, Integer type, default=1. |
+| addressId | Shipping address ID. Required when spuCategory="2" (physical goods). String type. |
+| spuCategory | Product category. "1": virtual goods, "2": physical goods. Obtained from product list or product detail query. String type. |
+
+**Response Content:**
+
+Example:
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-05-18 17:43:14",
+    "traceId": "c3d0683340056b13a2eb8a3bf8aec93b",
+    "data": {
+        "orderId": "ECS1211037028709736448",
+        "orderStatus": 1,
+        "status": 1,
+        "orderDetailVo": {
+            "orderId": "ECS1211037028709736448",
+            "orderStatus": 1,
+            "orderStatusTitle": "Pending Payment",
+            "leftPaySecond": 899,
+            "shopName": "MaiMai Mall",
+            "realTotalAmount": "0.01",
+            "goods": [
+                {
+                    "spuId": 465,
+                    "skuId": 10863,
+                    "spuName": "Breakfast Privilege Card",
+                    "skuName": "30 Days",
+                    "count": 1,
+                    "price": "0.01",
+                    "points": "0"
+                }
+            ]
+        },
+        "addressVO": {
+            "addressId": "1036456600188036763821193517",
+            "contactName": "Li",
+            "phone": "199****1228",
+            "fullAddress": "Jiangsu Province Nanjing City Jiangning District xxx"
+        }
+    }
+}
+```
+
+### 4.5.6 Mall Order List Query
+
+**Description:**
+> Queries orders purchased/redeemed in MaiMai Mall within the past year. Use this tool when users want to check their mall order history.
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| lastId | Last order ID for pagination. Optional, Long type. |
+| size | Number of orders to return. Optional, Integer type. |
+
+**Response Content:**
+
+Example:
+```json
+{
+  "success": true,
+  "code": 200,
+  "message": "Request succeeded",
+  "datetime": "2026-05-18 17:58:01",
+  "traceId": "5cff3c2a2081a1aa68175104965cee18",
+  "data": [
+    {
+      "hasNext": true,
+      "lastId": 81954,
+      "list": [
+        {
+          "orderId": "ECS1211037028709736448",
+          "orderStatus": 1,
+          "orderStatusTitle": "Pending Payment",
+          "shopName": "MaiMai Mall",
+          "totalCount": 1,
+          "goods": [
+            {
+              "spuId": 465,
+              "skuId": 10863,
+              "spuName": "Breakfast Privilege Card",
+              "skuName": "30 Days",
+              "count": 1,
+              "price": "0.01"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 4.5.7 Mall Order Detail Query
+
+**Description:**
+> Queries detailed information of a MaiMai Mall order. Use this tool when users want to check order details (payment points/amount, order status, etc.).
+
+**Input Parameters:**
+
+| name | description |
+|------|-------------|
+| orderId | Order ID, required. String type. |
+
+**Response Content:**
+
+Example:
+```json
+{
+    "success": true,
+    "code": 200,
+    "message": "Request succeeded",
+    "datetime": "2026-05-18 18:00:02",
+    "traceId": "83b47a170d749905972f3ee2406019c1",
+    "data": {
+        "orderId": "ECS1211037028709736448",
+        "orderStatus": 40,
+        "orderStatusTitle": "Cancelled",
+        "orderStatusSubTitle": "Your order was cancelled due to payment timeout",
+        "shopName": "MaiMai Mall",
+        "goodsTotalPrice": "0.01",
+        "realTotalAmount": "0.01",
+        "createTime": "2026-05-18 17:43:14",
+        "goods": [
+            {
+                "spuId": 465,
+                "skuId": 10863,
+                "spuName": "Breakfast Privilege Card",
+                "skuName": "30 Days",
+                "count": 1,
+                "price": "0.01",
+                "points": "0"
+            }
+        ]
+    }
+}
+```
 ---
 
 ## 4.6 General Utilities
@@ -1124,7 +1400,6 @@ Example:
   }
 }
 ```
-
 ---
 
 # 5. Version Log
@@ -1135,6 +1410,7 @@ Example:
 | 2026-01-23 |  1.0.1  | Added the "Food Nutrition Information List" Tool, we shortened the URL for easier access and integration |
 | 2026-02-13 |  1.0.2  | Added McDelivery ordering and points redemption voucher tools                                            |
 | 2026-04-02 |  1.0.3  | Added in-store pickup (FC) and group meal ordering tools                                                 |
+| 2026-05-21 |  1.0.4  | Added points redemption for physical goods, mall order queries, Drive-Through ordering support, and reservation functionality for all ordering scenarios |
 
 ---
 
