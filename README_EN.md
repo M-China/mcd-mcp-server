@@ -13,6 +13,7 @@
 **What is McDonald's MCP Service?**
 - McDonald's MCP Service is a data interaction interface service that complies with the Model Context Protocol (MCP) standard, provided by McDonald's China for use in mainland China (excluding Hong Kong, Macau, and Taiwan).
 - McDonald's MCP Service now covers McDelivery ordering, in-store pickup, group meals, points redemption vouchers, activity calendar queries, and other business scenarios. More practical tools are under continuous development and will be launched soon.
+- Official website of the McDonald's MCP Server Open Platform: [https://open.mcd.cn/mcp](https://open.mcd.cn/mcp)
 
 # 1. Apply for MCP Token
 - **Step 1:** Click the **[Login]** button in the top right corner.

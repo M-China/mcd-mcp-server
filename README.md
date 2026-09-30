@@ -13,6 +13,7 @@
 **什么是麦当劳 MCP 服务?**
 - 麦当劳 MCP 服务是一个遵循 Model Context Protocol（MCP）标准的数据交互接口服务，由麦当劳中国提供，面向中国大陆地区（不含港澳台）使用。
 - 麦当劳MCP服务现已覆盖麦乐送点餐、到店取餐、团餐、积分兑换券、活动日历查询等业务场景。更多实用工具正在持续开发上线。
+- 麦当劳 MCP Server 开放平台官网：[https://open.mcd.cn/mcp](https://open.mcd.cn/mcp)
 
 # 1. 申请 MCP Token
 - 第一步：点击右上角【登录】按钮
