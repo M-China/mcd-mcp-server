@@ -14,15 +14,6 @@
 - 麦当劳 MCP 服务是一个遵循 Model Context Protocol（MCP）标准的数据交互接口服务，由麦当劳中国提供，面向中国大陆地区（不含港澳台）使用。
 - 麦当劳MCP服务现已覆盖麦乐送点餐、到店取餐、团餐、积分兑换券、活动日历查询等业务场景。更多实用工具正在持续开发上线。
 
-# 新闻
-- **[2026-05] `功能`:** 我们新增了"积分兑换实物商品"、"商城订单查询"等工具，并支持得来速(Drive-Through)车道取餐场景下单及全部点餐场景的预约功能。[查看工具详情](#4-工具)
-- **[2026-04] `功能`:** 我们上线了"到店取餐"与"团餐"场景的点餐能力，新增了附近门店查询工具，并对多个点餐工具进行了升级以支持多场景下单。[查看工具详情](#4-工具)
-- **[2026-02] `功能`:** 我们新增了"麦乐送点餐"与"积分兑换券"功能模块，支持完整的外送点餐与积分兑换服务。[查看工具详情](#4-工具) 
-- **[2026-01] `功能`:** 我们新增了“餐品营养信息列表”工具，用户可以查询麦当劳常见餐品的营养成分数据,咨询麦当劳餐品的热量、营养。[查看工具详情](#4-工具)
-- **[2025-12] `发布`:** 我们发布了麦当劳 MCP Server 1.0.0 版本，提供了活动日历查询和麦麦省领券功能，快来试试吧！接入教程请看下文[快速开始](#2-快速开始)部分
-
----
-
 # 1. 申请 MCP Token
 - 第一步：点击右上角【登录】按钮
   <div class="img"><img src="https://img.mcd.cn/gallery/91178777592c9118.jpeg" alt="" width="1000" /></div>
@@ -72,13 +63,23 @@ Authorization: Bearer YOUR_MCP_TOKEN
 ```
 
 ## 2.4 注意事项：
-> - ⚠️MCP Server 当前仅支持 MCP **Version 2025-06-18** 及之前的版本。
 > - 每个 Token 每分钟最多允许 600 次请求，超过限制会返回 429 错误码，请合理控制请求频率。
 > - 请确保 MCP Client 支持 Streamable HTTP 协议。
 > - 请妥善保管 MCP Token，避免泄露给他人。
 
-## 2.5 各平台接入教程：
-### 2.5.1 Cherry Studio
+## 2.5 MCP Client 推荐
+
+|    Client     |                                 Link                                 |
+|:-------------:|:--------------------------------------------------------------------:|
+|   Workbuddy   | https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Connector |
+| Cherry Studio |            https://docs.cherry-ai.com/advanced-basic/mcp             |
+|    Cursor     |       https://cursor.com/cn/docs/context/mcp#protocol-support        |
+|     Kiro      |                      https://kiro.dev/docs/mcp/                      |
+|     Trae      |           https://docs.trae.cn/ide/model-context-protocol            |
+|    VSCode     | https://code.visualstudio.com/docs/copilot/customization/mcp-servers |
+
+## 2.6 各平台接入教程：
+### 2.6.1 Cherry Studio
 > **前置条件**：需申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
 > 参考 Cherry Studio 官方文档：https://docs.cherry-ai.com/advanced-basic/mcp
 
@@ -101,7 +102,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 <div class="img"><img src="https://img.mcd.cn/gallery/16721f738e7f631e.png" alt="" width="1000" /></div>
 
 
-### 2.5.2 Cursor
+### 2.6.2 Cursor
 > 前置条件：需申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
 > 参考 Cursor 官方文档：https://cursor.com/cn/docs/context/mcp
 
@@ -122,7 +123,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 <div class="img"><img src="https://img.mcd.cn/gallery/fed973ae04371908.png" alt="" width="1000" /></div>
 
 
-### 2.5.3 TRAE
+### 2.6.3 TRAE
 > 前置条件：需申请到麦当劳中国的 MCP Token，教程：[申请 MCP Token](#1-申请-mcp-token)\
 > 参考 TRAE 官方文档：https://docs.trae.cn/ide/model-context-protocol
 
@@ -147,43 +148,15 @@ Authorization: Bearer YOUR_MCP_TOKEN
 接下来就可以直接在对话框中输入需求，让 AI 为我们调用工具了
 <div class="img"><img src="https://img.mcd.cn/gallery/4b82125a6902a916.png" alt="" width="1000" /></div>
 
-## 2.6 错误码说明
+## 2.7 错误码说明
 
 | code | 原因 | 处理建议 |
 |:----:|:----:|:---------|
 | 401 | MCP Token 无效、已过期或未提供 | 检查 Authorization 请求头和 MCP Token 配置 |
 | 429 | 触发限流（超过 600 次/分钟） | 降低请求频率，合理控制调用间隔 |
 
-# 3. 调试指南
-## 3.1 MCP Client  推荐
-
-
-|    Client     |                                 Link                                 |
-|:-------------:|:--------------------------------------------------------------------:|
-| Cherry Studio |            https://docs.cherry-ai.com/advanced-basic/mcp             |
-|    Cursor     |       https://cursor.com/cn/docs/context/mcp#protocol-support        |
-|     Kiro      |                      https://kiro.dev/docs/mcp/                      |
-|     Trae      |           https://docs.trae.cn/ide/model-context-protocol            |
-|    VSCode     | https://code.visualstudio.com/docs/copilot/customization/mcp-servers |
-
-## 3.2 LLM 推荐
-
-截至 2026 年 2 月 12 日
-
-|    厂商    |           型号           |
-|:--------:|:----------------------:|
-|   Qwen   | qwen-plus<br>qwen3-max |
-|  Doubao  |    Doubao-Seed-1.6     |
-|   Kimi   |          k2.5          |
-|  Zhipu   |         GLM-5          |
-|  Gemini  | gemini-3-flash-preview |
-| DeepSeek |     DeepSeek-V3.2      |
-
-
-# 4. 工具
+# 3. 工具列表
 > MCP Server 目前所支持的 Tools
-
-## 4.1 工具列表
 
 <table>
   <thead>
@@ -211,7 +184,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">delivery-query-stores</td>
-      <td>外送场景查询可配送门店</td>
+      <td>查询可配送的门店列表</td>
       <td>外送场景下查询用户收货地址附近可配送门店</td>
     </tr>
     <tr>
@@ -221,23 +194,23 @@ Authorization: Bearer YOUR_MCP_TOKEN
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-nearby-stores</td>
-      <td>查询附近门店</td>
+      <td>查询附近可用门店</td>
       <td>查询用户提供地址附近的麦当劳餐厅</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-store-coupons</td>
-      <td>查询用户在当前门店可用券</td>
+      <td>查询用户当前门店下可用的优惠券列表</td>
       <td>查询用户在当前门店下可使用的优惠券列表，用于点餐时选择可用优惠</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-meals</td>
-      <td>查询当前门店可售卖的餐品列表</td>
+      <td>查询当前可售卖的餐品列表</td>
       <td>查询当前门店可售卖的餐品菜单（分类、餐品编码、标签等），用于点餐选品</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">query-meal-detail</td>
       <td>查询餐品详情</td>
-      <td>根据餐品编码查询餐品详情（套餐组成、默认选择等），用于查看套餐包含内容</td>
+      <td>根据餐品编码查询餐品详情套餐组成，用于查看套餐包含内容以及可以替换选项</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">calculate-price</td>
@@ -250,9 +223,19 @@ Authorization: Bearer YOUR_MCP_TOKEN
       <td>根据门店信息、就餐方式、商品列表等信息创建订单，返回订单详情与支付链接</td>
     </tr>
     <tr>
+      <td style="white-space: nowrap; text-align: center;">cancel-order</td>
+      <td>取消订单</td>
+      <td>取消点餐订单。当用户说&quot;取消订单&quot;、&quot;我要取消&quot;、&quot;帮我取消一下订单&quot;时，可使用该工具进行取消</td>
+    </tr>
+    <tr>
       <td style="white-space: nowrap; text-align: center;">query-order</td>
       <td>查询订单详情</td>
       <td>查询订单状态、订单内容、配送信息等，用于用户查看订单进度或确认订单信息</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">order-list</td>
+      <td>查询历史订单</td>
+      <td>查询近期的到店/外送历史订单（非商城订单，商城订单请使用 mall-order-list）</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">campaign-calendar</td>
@@ -281,1315 +264,95 @@ Authorization: Bearer YOUR_MCP_TOKEN
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">mall-points-products</td>
-      <td>积分兑换商品列表</td>
-      <td>查询麦麦商城内可以用积分兑换的餐品券（不包含积分兑换的第三方码）</td>
+      <td>查询麦麦商城商品列表</td>
+      <td>查询麦麦商城内可使用积分兑换或现金购买的商品（不包括使用积分兑换的第三方兑换码）</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">mall-product-detail</td>
-      <td>积分兑换商品详情</td>
-      <td>查询指定积分兑换商品券的详细信息（图片、积分、有效期、说明、详情等）</td>
+      <td>查询麦麦商城商品详情</td>
+      <td>查询商城商品详细信息（图片、积分、有效期、说明、详情等）</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">mall-create-order</td>
       <td>积分兑换商品下单</td>
-      <td>使用积分兑换指定餐品券，完成积分扣减并发放券码，返回兑换订单号与券码信息</td>
-    </tr>
-    <tr>
-      <td style="white-space: nowrap; text-align: center;">mall-create-order-physical</td>
-      <td>积分兑换实物商品下单</td>
-      <td>使用积分兑换实物商品，完成积分检验、收货地址确认，积分扣减以及库存扣减</td>
-    </tr>
-    <tr>
-      <td style="white-space: nowrap; text-align: center;">mall-order-list</td>
-      <td>麦麦商城订单查询</td>
-      <td>查询麦麦商城内近一年购买/兑换的商品订单列表</td>
-    </tr>
-    <tr>
-      <td style="white-space: nowrap; text-align: center;">mall-order-detail</td>
-      <td>麦麦商城订单详情查询</td>
-      <td>查询麦麦商城订单详细信息（支付积分/金额、订单状态等）</td>
+      <td>使用积分兑换虚拟或实物商品，完成积分校验、积分扣减及发券或实物库存扣减，返回兑换订单号和券码信息</td>
     </tr>
     <tr>
       <td style="white-space: nowrap; text-align: center;">now-time-info</td>
       <td>获取当前时间信息</td>
       <td>返回当前的完整时间信息，以便于 LLM 知道当前的时间和日期</td>
     </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-lottery-info</td>
+      <td>查看积分抽奖活动信息</td>
+      <td>查询当前积分抽奖活动的基本信息，包括活动状态、奖品列表、抽奖消耗规则和用户可用资源</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">draw-lottery</td>
+      <td>积分抽奖</td>
+      <td>执行一次积分抽奖，消耗积分或次数，返回是否中奖及奖品信息</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-my-prizes</td>
+      <td>查看我的奖品</td>
+      <td>查询用户在积分抽奖活动中获得的全部奖品记录，支持分页，按中奖时间倒序排列</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-order-list</td>
+      <td>麦麦商城订单查询</td>
+      <td>查询麦麦商城内近一年购买或兑换的商品订单列表</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">mall-order-detail</td>
+      <td>麦麦商城订单详情查询</td>
+      <td>查询麦麦商城订单的详细信息，包括支付积分、支付金额和订单状态等</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-party-city</td>
+      <td>主题活动城市列表查询</td>
+      <td>查询主题活动商品对应的可参与城市列表</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-party-store</td>
+      <td>主题活动门店列表查询</td>
+      <td>查询指定城市下主题活动可参与的门店列表</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-partystore-date</td>
+      <td>主题活动可预约日期查询</td>
+      <td>查询指定门店下主题活动的可预约日期列表</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">query-partystore-session</td>
+      <td>主题活动可预约日期场次查询</td>
+      <td>查询指定门店、指定日期下主题活动的可预约场次列表</td>
+    </tr>
+    <tr>
+      <td style="white-space: nowrap; text-align: center;">party-order-create</td>
+      <td>主题活动订单创建</td>
+      <td>创建主题活动订单，当用户选择好城市、门店、日期、场次后使用此工具下单</td>
+    </tr>
   </tbody>
 </table>
 
-## 4.2 点餐
-
-### 4.2.1 餐品营养信息列表
-
-**描述：**
-> 获取麦当劳常见餐品的营养成分数据，包括能量、蛋白质、脂肪、碳水化合物、钠、钙等信息。当用户咨询麦当劳餐品的热量、营养，或需要帮助用户搭配指定热量套餐时使用此工具。
-
-**入参：**
-> 无需入参
-
-**响应内容：**
-> 注意：为优化 LLM Token 消耗，营养信息采用紧凑格式（toon 格式）返回，而非标准 JSON 数组格式。
-
-示例：
-``` json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-01-23 09:32:44",
-    "data": "[1]{productName,nutritionDescription,energyKj,energyKcal,protein,fat,carbohydrate,sodium,calcium}:\n  猪柳麦满分,null,1288,308,16,16,24,781,213\n "
-}
-```
-### 4.2.2 获取用户可配送地址列表
-
-**描述：**   
-> 查询用户已创建的配送地址列表。当用户说："我想点一份麦当劳外送到家"、"我想吃麦当劳"时，会使用该工具查询用户可配送的地址列表。
-
-**入参：**  
-> 无需入参
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:29:28",
-    "traceId": "f2a0d969353467c957fd6728166eb430",
-    "data": {
-        "addresses": [
-            {
-                "addressId": "1",
-                "contactName": "张三",
-                "phone": "152****6666",
-                "fullAddress": "xx省xx市xxx小区 x栋x单元xxx室"
-            }
-        ]
-    }
-}
-```
-### 4.2.3 新增配送地址
-
-**描述：**  
-> 用户无可配送地址或者当前无用户期望的配送地址时，用户可以使用该工具新增配送地址。
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| city | 城市名称，必填，必须从用户输入中获取实际城市名称，如"南京市" |
-| contactName | 联系人姓名，必填，必须从用户输入中获取实际联系人姓名，如"李明" |
-| gender | 性别，非必填，如"先生"、"女士" |
-| phone | 联系人电话号码，必填，必须从用户输入中获取实际电话号码，类型为11位纯数字，如"16666666666" |
-| address | 配送地址，必填，必须从用户输入中获取实际地址，如"清竹园9号楼" |
-| addressDetail | 配送地址门牌号，必填，必须从用户输入中获取实际门牌号，如"2单元508" |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:29:28",
-    "traceId": "f2a0d969353467c957fd6728166eb430",
-    "data": {
-        "addressId": "1",
-        "contactName": "张三",
-        "phone": "152****6666",
-        "fullAddress": "xx省xx市xxx小区 x栋x单元xxx室"
-    }
-}
-```
-### 4.2.4 查询可配送的门店列表
-
-**描述：**  
-> 外送场景下(包含麦乐送和企业团餐)，用户选择完地址后，根据地址ID，查询用户当前地址可配送的门店
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| addressId | 用户选择的地址ID，必填 |
-| beType | 必填，2：麦乐送，6：团餐 |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-04-28 11:32:39",
-    "traceId": "19df0dfba930e166f77437c85f8df037",
-    "data": [
-        {
-            "storeCode": "xxxxxx",
-            "beCode": "xxxx",
-            "storeName": "麦当劳xxxx餐厅",
-            "reservation": true,
-            "reservationTimeOptions": [
-                {
-                    "date": "2026-04-29",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-04-30",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-05-01",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-05-02",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-05-03",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                }
-            ],
-            "businessStatus": true,
-            "businessStartTime": "00:00",
-            "businessEndTime": "23:59"
-        },
-        {
-            "storeCode": "xxxx",
-            "beCode": "xxxxx",
-            "storeName": "麦当劳xxxxx",
-            "reservation": true,
-            "reservationTimeOptions": [
-                {
-                    "date": "2026-04-28",
-                    "today": true,
-                    "reservationOptionText": "午餐(10:30至15:29)，下午茶(15:30至17:59)，夜市(18:00至23:59)"
-                },
-                {
-                    "date": "2026-04-29",
-                    "today": false,
-                    "reservationOptionText": "夜市(00:00至00:59,01:00至05:59,18:00至23:59)，早餐(06:00至10:29)，午餐(10:30至15:29)，下午茶(15:30至17:59)"
-                },
-                {
-                    "date": "2026-04-30",
-                    "today": false,
-                    "reservationOptionText": "夜市(00:00至00:59,01:00至05:59,18:00至23:59)，早餐(06:00至10:29)，午餐(10:30至15:29)，下午茶(15:30至17:59)"
-                },
-                {
-                    "date": "2026-05-01",
-                    "today": false,
-                    "reservationOptionText": "夜市(00:00至00:59,01:00至05:59,18:00至23:59)，早餐(06:00至10:29)，午餐(10:30至15:29)，下午茶(15:30至17:59)"
-                },
-                {
-                    "date": "2026-05-02",
-                    "today": false,
-                    "reservationOptionText": "夜市(00:00至00:59,01:00至05:59,18:00至23:59)，早餐(06:00至10:29)，午餐(10:30至15:29)，下午茶(15:30至17:59)"
-                },
-                {
-                    "date": "2026-05-03",
-                    "today": false,
-                    "reservationOptionText": "夜市(00:00至00:59,01:00至05:59,18:00至23:59)，早餐(06:00至10:29)，午餐(10:30至15:29)，下午茶(15:30至17:59)"
-                }
-            ],
-            "businessStatus": true,
-            "businessStartTime": "00:00",
-            "businessEndTime": "23:59"
-        }
-    ]
-}
-```
-### 4.2.5 查询助餐服务
-
-**描述：**  
-> 仅企业团餐场景下，查询该门店可使用的助餐服务
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| storeCode | 门店编码，必填 |
-| beCode | BE编码，必填 |
-| beType | 业务类型，必填，仅支持团餐 beType=6 |
-| orderType | 订单类型，必填，仅支持 orderType=2 外送 |
-| reservationDate | 预约时间，非必填，格式 yyyy-MM-dd HH:mm，可根据预约时间确定助餐服务是否可用 |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-04-28 11:34:00",
-    "traceId": "a8f4cc0361d377d9d68da56c4048c362",
-    "data": {
-        "mealAssistanceItems": [
-            {
-                "gmServiceCode": "GMSxxx",
-                "gmServiceName": "保鲜速达",
-                "serviceItems": ["准时送达&餐品保温"],
-                "selected": true,
-                "enable": true
-            },
-            {
-                "gmServiceCode": "GMS0xx",
-                "gmServiceName": "专人分餐",
-                "serviceItems": ["独立分装&餐品保温", "送餐到桌/到人"],
-                "enable": true
-            },
-            {
-                "gmServiceCode": "GMS0xx",
-                "gmServiceName": "专人摆台",
-                "serviceItems": ["独立分装&餐品保温", "餐品摆台", "专人服务"],
-                "enable": true
-            }
-        ],
-        "promotions": [
-            "保鲜速达: 满300享78折/满500享74折/满1000享70折/满2000享66折",
-            "专人分餐: 满300享88折/满500享84折/满1000享80折/满2000享76折",
-            "专人摆台: 满300享93折/满500享89折/满1000享85折/满2000享81折"
-        ]
-    }
-}
-```
-### 4.2.6 查询附近可用门店
-
-**描述：**  
-> 到店场景下，查询用户可点餐门店，需要用户明确是到店自取还是车道取餐，仅支持到店自提和车道取餐两种场景
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| searchType | 必填，2：按位置进行搜索，1：搜索收藏餐厅，默认 searchType=1 |
-| beType | 必填，1：到店自取，5：得来速车道取餐(Drive Through) |
-| city | 城市，仅在searchType=2时必填 |
-| keyword | 位置关键词，仅在searchType=2时必填 |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:44:29",
-    "traceId": "341e2dce2af4a61497b52097125a8a77",
-    "data": [
-        {
-            "storeCode": "xxxxxx",
-            "beCode": "xxxx",
-            "storeName": "麦当劳xxxx餐厅",
-            "address": "",
-            "distance": "",
-            "reservation": true,
-            "reservationTimeOptions": [
-                {
-                    "date": "2026-04-29",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-04-30",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-05-01",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-05-02",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                },
-                {
-                    "date": "2026-05-03",
-                    "today": false,
-                    "reservationOptionText": "早餐(06:00至09:59)"
-                }
-            ],
-            "businessStatus": true,
-            "businessStartTime": "00:00",
-            "businessEndTime": "23:59"
-        }
-    ]
-}
-```
-### 4.2.7 查询用户当前门店下可用的优惠券列表
-
-**描述：**  
-> 查询用户在当前门店、当前取餐方式可用的优惠券。当用户询问当前门店、取餐方式有哪些可以使用的优惠券时，可以使用该工具进行查询。
-
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| storeCode | 门店编码，必填 |
-| beCode | BE编码（Business Entity Code） |
-| orderType | 必填，订单类型，orderType=1 到店，orderType=2 外送 |
-| beType | 必填，业务类型，1：到店取餐，2：麦乐送到家，5：得来速(DT)，6：企业团餐 |
-| reservationDate | 预约时间，预约场景下必填，格式 yyyy-MM-dd HH:mm |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:32:41",
-    "traceId": "0f694a844e393e6cb0717455d9229a24",
-    "data": [
-        {
-            "title": "外送优惠券二次券",
-            "couponId": "xxxxxxxxxx",
-            "couponCode": "xxxxxx",
-            "tradeDateTime": "2025-04-21 23:23:00-2026-07-01 23:59:59",
-            "products": [
-                {
-                    "productCode": "xxxxxxxxx",
-                    "productName": "甜蜜小食1+1"
-                }
-            ]
-        }
-    ]
-}
-```
-### 4.2.8 查询当前可售卖的餐品列表
-
-**描述：**  
-> 查询当前门店可售餐品列表。当用户希望获取门店菜单或者点单时，可以调用这个工具获取当前门店可售的餐品。
-
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| storeCode | 门店编码，必填 |
-| beCode | BE编码（Business Entity Code） |
-| orderType | 必填，到店：orderType=1，外送：orderType=2 |
-| beType | 必填，业务类型，1：到店取餐，2：麦乐送到家，5：得来速(DT)，6：企业团餐 |
-| reservationDate | 预约时间，预约场景下必填，格式 yyyy-MM-dd HH:mm |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 09:47:35",
-    "traceId": "4b2b4de1d772dad2dc498597c65cf3af",
-    "data": {
-        "categories": [
-            {
-                "name": "人气热卖",
-                "meals": [
-                    {
-                        "code": "9900008139",
-                        "tags": []
-                    },
-                    {
-                        "code": "9900008169",
-                        "tags": []
-                    },
-                    {
-                        "code": "920215",
-                        "tags": [
-                            "第二份半价"
-                        ]
-                    }
-                ],
-                "daypart": 8
-            }
-        ],
-        "meals": {
-            "920215": {
-                "name": "培根安格斯厚牛堡大套餐",
-                "currentPrice": "55.5"
-            },
-            "9900008139": {
-                "name": "DC套餐测试",
-                "currentPrice": "14"
-            },
-            "9900008169": {
-                "name": "双层深海鳕鱼堡",
-                "currentPrice": "25"
-            }
-        }
-    }
-}
-```
-### 4.2.9 查询餐品详情
-
-**描述：**
-> 根据餐品列表中返回的餐品编码，可以查看套餐的组成等信息。当用户需要查看餐品详情时使用此工具。 
-
-**重点注意：**
->当前版本（v1.0.3）暂不支持更换套餐内的单品，该功能将在后续版本中提供。
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| code | 餐品编码，必填 |
-| storeCode | 门店code |
-| beCode | BE编码（Business Entity Code） |
-| orderType | 必填，到店：orderType=1，外送：orderType=2 |
-| beType | 必填，业务类型，1：到店取餐，2：麦乐送到家，5：得来速(DT)，6：企业团餐 |
-| reservationDate | 预约时间，预约场景下必填，格式 yyyy-MM-dd HH:mm |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:37:19",
-    "traceId": "21de60d22eea026cae0428f714359e2c",
-    "data": {
-        "code": "9900008139",
-        "price": "14",
-        "rounds": [
-            {
-                "id": 1,
-                "name": "汉堡包",
-                "quantity": 1,
-                "maxQuantity": 1,
-                "minQuantity": 1,
-                "choices": [
-                    {
-                        "code": "1000",
-                        "name": "汉堡包-pool1",
-                        "quantity": 1,
-                        "maxQuantity": -1
-                    }
-                ]
-            }
-        ]
-    }
-}
-```
-### 4.2.10 商品价格计算
-
-**描述：**  
-> 计算用户购买商品及优惠价格。当用户询问商品或商品组合的价格时，可以使用此工具获取订单价格信息。
-
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| storeCode | 门店编码，必填 |
-| beCode | BE编码 |
-| orderType | 必填，到店：orderType=1，外送：orderType=2 |
-| beType | 必填，业务类型，1：到店取餐，2：麦乐送到家，5：得来速(DT)，6：企业团餐 |
-| reservationDate | 预约时间，预约场景下必填，格式 yyyy-MM-dd HH:mm |
-| gmServiceCode | 必填，企业团餐场景下，助餐服务code |
-| items | 商品列表（数组） |
-
-`items` 字段结构：
-
-| name | description |
-|------|-------------|
-| productCode | 商品编码，必填 |
-| quantity | 商品数量，必填 |
-| couponId | 优惠券ID，选填（如果用户要使用优惠券） |
-| couponCode | 优惠券编码，选填（如果用户要使用优惠券） |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:39:50",
-    "traceId": "1f90ace087d33bdabd3b8c27da4e7b0a",
-    "data": {
-        "productOriginalPrice": 1600,
-        "productPrice": 1600,
-        "deliveryOriginalPrice": 600,
-        "deliveryPrice": 600,
-        "originalPrice": 2200,
-        "discount": 0,
-        "price": 2200,
-        "productList": [
-            {
-                "productCode": "xxxxxxx",
-                "productName": "DC套餐测试",
-                "quantity": 1,
-                "originalSubtotal": 1600,
-                "subtotal": 1600
-            }
-        ],
-        "takeWayList": [],
-        "mealAssistanceList": []
-    }
-}
-```
-### 4.2.11 创建订单
-
-**描述：**  
-> 创建订单。当用户说："帮我下单xxx商品"、"确认下单"时，可以使用该工具进行下单。
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| storeCode | 门店编码，必填 |
-| beCode | BE编码，必填 |
-| addressId | 外送场景下必填 |
-| takeWayCode | 到店场景下必填，需要从价格计算工具中获取 |
-| beType | 必填，业务类型，1：到店取餐，2：麦乐送到家，5：得来速(DT)，6：企业团餐 |
-| reservationDate | 预约时间，预约场景下必填，格式 yyyy-MM-dd HH:mm |
-| gmServiceCode | 企业团餐场景下，助餐服务code必填 |
-| items | 商品列表（数组） |
-
-`items` 字段结构：
-
-| name | description |
-|------|-------------|
-| productCode | 商品编码，必填 |
-| quantity | 商品数量，必填 |
-| couponId | 优惠券ID，选填（如果用户要使用优惠券） |
-| couponCode | 优惠券编码，选填（如果用户要使用优惠券） |
-
-**响应内容：**
-
-示例：
-```json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2026-02-09 14:42:51",
-  "traceId": "80572509920e2e1e4a4373ee9eeca070",
-  "data": {
-    "orderId": "1030938730000733964700499858",
-    "payId": "11940981078137585664",
-    "payH5Url": "https://m.mcd.cn/mcp/scanToPay?orderId=1030938730000733964700499858",
-    "orderDetail": {
-      "orderStatus": "待支付",
-      "storeName": "xxxxxx门店",
-      "storeAddress": "xxxxx",
-      "orderProductList": [
-        {
-          "productName": "DC套餐测试",
-          "quantity": 1,
-          "price": "16",
-          "comboItemList": [
-            {
-              "itemName": "汉堡包-pool1 加一份奶油(加)",
-              "itemQuantity": 1
-            }
-          ]
-        }
-      ],
-      "totalAmount": "22",
-      "realTotalAmount": "22",
-      "totalDiscountAmount": "0",
-      "couponList": [],
-      "deliveryInfo": {
-        "deliveryType": "立即送出",
-        "deliveryAddress": "xxxx小区-xx栋",
-        "addressDetail": "xxx号房间",
-        "customerNickname": "张三",
-        "mobilePhone": "152****6666",
-        "expectDeliveryTime": ""
-      },
-      "createTime": "2026-02-09 14:42:51",
-      "deliveryPrice": "6",
-      "realDeliveryPrice": "6",
-      "productPrice": "16",
-      "takeWay": "locker-in",
-      "pickupCode": "",
-      "lockerCode": "",
-      "mealAssistance": {
-        "code": "",
-        "name": "",
-        "items": [
-          {
-            "name": ""
-          }
-        ]
-      }
-    }
-  }
-}
-```
-### 4.2.12 查询订单详情
-
-**描述：**  
-> 查询订单详情。当用户说："帮我看一下订单进度"、"看看现在配送到哪里了"时，可以使用该工具获取进度信息。
-
-**入参：**
-
-| name | description |
-|------|-------------|
-| orderId | 订单号，必填 |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-02-09 14:44:29",
-    "traceId": "341e2dce2af4a61497b52097125a8a77",
-    "data": {
-        "orderId": "1030938730000733964700499858",
-        "orderStatus": "待支付",
-        "storeName": "xxxxx门店",
-        "orderProductList": [
-            {
-                "productName": "DC套餐测试",
-                "quantity": 1,
-                "price": "16",
-                "comboItemList": [
-                    {
-                        "itemName": "汉堡包-pool1 加一份奶油(加)",
-                        "itemQuantity": 1
-                    }
-                ]
-            }
-        ],
-        "totalAmount": "22",
-        "realTotalAmount": "22",
-        "totalDiscountAmount": "0",
-        "couponList": [],
-        "deliveryInfo": {
-            "deliveryType": "立即送出",
-            "deliveryAddress": "xxxx小区-xx栋",
-            "addressDetail": "xxx号房间",
-            "customerNickname": "张三",
-            "mobilePhone": "152****6666",
-            "expectDeliveryTime": ""
-        },
-        "createTime": "2026-02-09 14:42:51",
-        "deliveryPrice": "6",
-        "realDeliveryPrice": "6",
-        "productPrice": "16",
-        "takeWay": "locker-in",
-        "pickupCode": "",
-        "lockerCode": "",
-        "mealAssistance": {
-            "code": "",
-            "name": "",
-            "items": [
-                {
-                    "name": ""
-                }
-            ]
-        }
-    }
-}
-```
-
----
-
-## 4.3 麦麦日历
-
-### 4.3.1 活动日历查询工具
-
-**描述：**
-> 查询麦当劳中国当月的营销活动日历，返回进行中、往期和未来日期的活动。适用于查看用户进行中和即将到来的可参与活动，还可查询用户对活动的订阅状态。
-
-**入参：**
-
-|     name      |                              description                               |
-|:-------------:|:----------------------------------------------------------------------:|
-| specifiedDate | 查询指定日期范围的活动(格式: yyyy-MM-dd)，返回该日期附近一共三天的活动，非必传，默认查询当前月的活动，查询今天的活动不需要入参 |
-
-**响应内容：**
-> 注意：活动内容为营销文案，可能包含表情符号等营销元素。
-
-示例：
-``` markdown
-### 当前时间：2025-12-09 14:48:42
-### 活动列表：
-#### 12月8日 往期回顾
--   **活动标题**：小女警沙发！12月12日麦麦商城见！⏰\
-    **活动内容介绍**：❗️超萌酷小女警爱心沙发来袭
-    😍小女警+汉堡刺绣+粉嫩配色
-    ✨满满英雄力和快乐能量！
-    💥12月12日14:00准时发售
-    👇提前预约，心动别错过！\
-    **活动图片介绍**：\
-    <img src="https://cms-cdn.mcd.cn/img/short-content/86a849ae4b9528e53ac595ffa1b39cf9.png" alt="" height="300" width="auto">
-#### 12月9日 今日
--   **活动标题**：⏳倒计时！超人气「芝芝火腿扒堡」即将回归！\
-    **活动内容介绍**：🍔松软芝芝火腿扒堡搭配鲜萃咖啡
-    💥一堡+一咖啡！还是天天￥9.9！
-    ☀一口下去给元气满满的早晨充能！
-    ⏰12月15日起，超值低价闭眼冲！\
-    **活动图片介绍**：\
-    <img src="https://cms-cdn.mcd.cn/img/short-content/39bb241887869bca544b67a355cb616f.jpg" alt="" height="300" width="auto">
-```
-
----
-
-## 4.4 麦麦省领券
-
-### 4.4.1 麦麦省券列表查询
-
-**描述：**
-> 查询用户当前可领取的麦麦省的优惠券列表。返回券名称、图片、状态和促销标签。当用户询问有什么优惠、可以领什么券时使用此工具。
-
-**入参：**
-> 无需入参
-
-**响应内容：**
-
-示例：
-``` markdown
-### 麦麦省优惠券列表：
-- 优惠券标题：11.9元麦乐鸡 \
-  状态：已领取 \
-  优惠券图片：\
-    <img src="https://img.mcd.cn/cms/images/077b86c9268d33a0.png" height="auto" width="300">
-- 优惠券标题：9.9元薯你最甜 \
-  状态：未领取 \
-  优惠券图片：\
-    <img src="https://img.mcd.cn/cms/images/0853e0f8882dc66e.png" height="auto" width="300">
-- 优惠券标题：北非蛋风味麦满分 \
-  状态：不可领取 \
-  优惠券图片：\
-    <img src="https://img.mcd.cn/cms/images/6714e5753b475d96.png" height="auto" width="300">
-```
-
-### 4.4.2 麦麦省一键领券
-
-**描述：**
-> 自动领取麦麦省所有当前可用的麦当劳优惠券。无需指定具体的优惠券和couponId，系统会自动领取用户可领的所有券。当用户说"帮我领券"、"自动领取优惠券"、"一键领券"时使用此工具。
-
-**入参：**
-> 无需入参
-
-**响应内容：**
-
-示例：
-``` markdown
-### 🎉 领券结果
-
-**总计**: 1 张优惠券
-**成功**: 1 张
-**失败**: 0 张
-
----
-
-#### ✅ 成功领取的优惠券：
-
-- **9.9元薯你最甜**
-  - couponId：8ED8D8BEBEBDEF26B615682E92EFAC86
-  - couponCode：MCDD60T892ST5EV00N1090
-  - 图片：<img src="https://img.mcd.cn/cms/images/0853e0f8882dc66e.png" alt="9.9元薯你最甜" height="200" width="auto">
-```
-
-### 4.4.3 我的优惠券查询
-
-**描述：**
-> 查询我有哪些可用的优惠券。就像打开麦当劳App的"我的优惠券"页面，能看到所有可以用来点餐的优惠券列表。 **包括但不限于使用场景**： - 用户想知道自己有哪些优惠券可以用 - 检查优惠券的有效期和使用条件 - 查看优惠券数量和状态
-
-**入参：**
-> 无需入参
-
-**响应内容：**
-
-示例：
-``` markdown
-# 您的优惠券列表
-
-共 1 张可用优惠券
-
-## 9.9元薯你最甜
-- **优惠**: ¥9.9 (用券价格)
-- **有效期**: 2025-12-09 00:00-2026-02-12 23:59
-- **领取时间**: 今日收到
-- **标签**: 到店专用、外送专用
-
-<img src="https://mcd-portal-prod-cos1-1300270282.cos.ap-shanghai.myqcloud.com/campaign/prod/campaign-offer/coupon/66f226e438714697b9f15d1a753d91ba/%E5%A4%A7%E8%96%AF%E6%9D%A1.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDCD6mEcX25tVrjNxiPvEICas0uXyBKIBs%26q-sign-time%3D1763363214%3B1921043214%26q-key-time%3D1763363214%3B1921043214%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D59b757fb6a863e8debfcdce8e595bf268d9c0cb9" alt="悟空加价特调免费券0411" height="300" width="auto">
-
-```
----
-
-
-## 4.5 麦麦商城
-### 4.5.1 我的积分查询
-
-**描述：**  
->查询用户的积分账户信息，包含历史积分累计、可用积分数量、过期积分数量等；当用户询问账户下积分数量情况时使用此工具。
-
-**入参：**  
->无需入参
-
-**响应内容：**
-
-示例：
-```json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2026-02-09 13:58:34",
-  "traceId": "713a18de45735089a3b8a0e8a7cf3e36",
-  "data": {
-    "availablePoint": "7592",
-    "accumulativePoint": "141760.94",
-    "currency": "麦当劳积分",
-    "currentMouthExpirePoint": "0",
-    "expiredPoint": "0",
-    "frozenPoint": "30",
-    "lastMouthExpirePoint": "0",
-    "nextMouthExpirePoint": "0",
-    "usedPoint": "115474.14"
-  }
-}
-```
-### 4.5.2 积分兑换商品列表
-
-**描述：**  
->查询麦麦商城内，可以用积分兑换的商品（不包含积分兑换的第三方码）。 当用户询问可以用积分兑换哪些商品时使用此工具。
-
-**入参：**  
-| name | description |
-|------|-------------|
-| catRuleIds | 用户在询问可以用积分兑换哪些商品，支持商品类目筛选，多个以逗号分隔，非必传，String 类型，商品券&实物商品：catRuleIds=1>4,2 |
-
-**响应内容：**
-
-示例：
-```json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2026-02-09 13:59:12",
-  "traceId": "43d1d331b103b29bd07a93d441409804",
-  "data": [
-    {
-      "spuName": "中杯拿铁/美式500积分",
-      "spuId": 542,
-      "spuImage": "https://img.mcd.cn/gallery/b6e0616d94c1f733.png",
-      "point": "500",
-      "shopId": 2,
-      "selling": "",
-      "upTime": "2026-02-02 00:00:00",
-      "downTime": "2026-04-30 23:59:59"
-    }
-  ]
-}
-```
-### 4.5.3 积分兑换商品详情
-
-**描述：**  
-查询可用积分兑换的商品券详细信息。  
-当用户想了解某个商品券的详细信息（如使用方式、有效期等）时，可以使用此工具。
-
-**入参：**  
-
-| name  | description |
-|-------|-------------|
-| spuId | 用户在积分兑换商品列表中选择的商品spuId，表示这个商品的 id，必传，Long 类型|
-
-
-**响应内容：**
-
-示例：
-```json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2026-02-09 14:03:20",
-  "traceId": "801b027a09821d95f8a8d26337245ea7",
-  "data": {
-    "spuName": "中杯拿铁/美式500积分",
-    "spuId": 542,
-    "images": [
-      "https://img.mcd.cn/gallery/b6e0616d94c1f733.png"
-    ],
-    "shopId": 2,
-    "selling": "",
-    "note": "note",
-    "detail": "detail",
-    "upDate": "2026-02-02 00:00:00",
-    "downDate": "2026-04-30 23:59:59",
-    "skuList": [
-      {
-        "skuId": 10997,
-        "points": "500",
-        "extTradePrice": "7",
-        "specList": [
-          {
-            "specMain": "规格名称",
-            "specItem": "规格值"
-          }
-        ]
-      }
-    ],
-    "categoryRuleId": "2>9",
-    "spuCategory": "2"
-  }
-}
-```
-### 4.5.4 积分兑换商品下单
-
-**描述：**  
->支持用户使用积分兑换商品，完成积分检验、积分扣减以及发券/实物库存扣减。当用户需要使用积分兑换某种商品时使用此工具。
-
-**入参：**  
-
-| name | description |
-|------|-------------|
-| skuId | 用户在积分兑换商品列表中选择的商品skuId，表示这个商品具体的规格 id，必传，Long 类型 |
-| count | 表示用户要兑换券的数量，非必传，Integer 类型，默认=1 |
-
-
-**响应内容：**
-
-示例：
-```json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2026-02-09 14:04:51",
-  "traceId": "da02dd48f941d934e4765627acdc27f4",
-  "data": {
-    "orderId": "ECS1202144786604392448",
-    "coupons": [
-      {
-        "couponId": "2BCEFFB7E1CEA6BD32A43C45A1CE80B3",
-        "orderItemId": "202144786647384064",
-        "couponCodes": [
-          "MCDD6E08N9100KC050F087"
-        ],
-        "orderItemStatus": 1
-      }
-    ],
-    "orderStatus": 30,
-    "status": 1
-  }
-}
-```
-
-### 4.5.5 积分兑换实物商品下单
-
-**描述：**  
->支持用户使用积分兑换实物，完成积分检验、收货地址确认，积分扣减以及库存扣减。当用户需要使用积分兑换某种实物商品时使用此工具。
-
-**入参：**
-
-| name        | description                                               |
-|-------------|-----------------------------------------------------------|
-| skuId       | 用户在积分兑换商品列表中选择的商品skuId，表示这个商品具体的规格 id，必传，Long 类型          |
-| count       | 表示用户要兑换券的数量，非必传，Integer 类型，默认=1                           |
-| addressId   | 配送地址ID，非必传, spuCategory="2"时必填，String 类型                  |
-| spuCategory | 类目，商品类别，"1"虚拟商品, "2"实体物品，需要从查询可兑换餐品券列表或查询商品详情中获取，String类型 |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-05-18 17:43:14",
-    "traceId": "c3d0683340056b13a2eb8a3bf8aec93b",
-    "data": {
-        "orderId": "ECS1211037028709736448",
-        "orderStatus": 1,
-        "status": 1,
-        "orderDetailVo": {
-            "orderId": "ECS1211037028709736448",
-            "orderType": 12,
-            "orderStatus": 1,
-            "orderStatusTitle": "待支付",
-            "orderStatusSubTitle": "内未支付将自动取消订单",
-            "leftPaySecond": 899,
-            "shopId": 1,
-            "shopName": "麦麦商城",
-            "channel": "03",
-            "channelTag": "APP",
-            "goodsTotalPoints": "0",
-            "goodsTotalPrice": "0.01",
-            "realGoodsTotalPrice": "0.01",
-            "realGoodsTotalPoints": "0",
-            "realTotalAmount": "0.01",
-            "realTotalPoints": "0",
-            "goodsDesc": "卡券使用规则详见卡券展示页面",
-            "payId": "11976540481989423104",
-            "createTime": "2026-05-18 17:43:14",
-            "payTransactionId": "",
-            "payTime": "2026-05-18 17:43:14",
-            "totalAmount": 0,
-            "realPayAmount": 0,
-            "discountAmount": 0,
-            "totalPoints": "0",
-            "canInvoice": false,
-            "gift": 0,
-            "haveRefund": false,
-            "newGiftVersion": false,
-            "auction": 0,
-            "customerServicePhone": "4009-200-205",
-            "tag": {
-                "name": "APP",
-                "color": "FFBC0D"
-            },
-            "secKill": false,
-            "spuMainImg": "",
-            "pointShowName": "积分",
-            "allCount": 1,
-            "receivedCount": 0,
-            "giftProgressText": "赠送进度",
-            "goods": [
-                {
-                    "type": 0,
-                    "spuId": 465,
-                    "skuId": 10863,
-                    "spuName": "早餐权益卡",
-                    "skuName": "30天",
-                    "skuImage": "https://cdn-test.mcdchina.net/ecs/5edd9406f3e63446.jpg",
-                    "count": 1,
-                    "price": "0.01",
-                    "points": "0",
-                    "goodsLabels": []
-                }
-            ],
-            "activityGoods": []
-        },
-        "addressVO": {
-            "addressId": "1036456600188036763821193517",
-            "contactName": "李",
-            "phone": "199****1228",
-            "fullAddress": "江苏省南京市江宁区东吉大道1号 江苏软件园一期9栋101"
-        }
-    }
-}
-```
-
-### 4.5.6 麦麦商城订单查询下单
-
-**描述：**  
->查询麦麦商城内近一年购买/兑换的商品。 当用户询问可以麦麦商城订单时使用此工具。
-
-**入参：**  
-
-| name | description |
-|------|-------------|
-| lastId | 最后一个订单id，非必传，Long 类型 |
-| size | 表示用户要兑换券的数量，非必传，Integer 类型|
-
-**响应内容：**
-
-示例：
-```json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2026-05-18 17:58:01",
-  "traceId": "5cff3c2a2081a1aa68175104965cee18",
-  "data": [
-    {
-      "hasNext": true,
-      "lastId": 81954,
-      "list": [
-        {
-          "orderId": "ECS1211037028709736448",
-          "payId": "11976540481989423104",
-          "channel": "03",
-          "channelTag": "APP",
-          "orderStatus": 1,
-          "orderStatusTitle": "待支付",
-          "shopId": 1,
-          "shopName": "麦麦商城",
-          "totalCount": 1,
-          "leftPaySecond": 12,
-          "goods": [
-            {
-              "type": 0,
-              "spuId": 465,
-              "skuId": 10863,
-              "spuName": "早餐权益卡",
-              "skuName": "30天",
-              "skuImage": "https://cdn-test.mcdchina.net/ecs/5edd9406f3e63446.jpg",
-              "count": 1,
-              "price": "0.01"
-            }
-          ],
-          "source": "1",
-          "tag": {
-            "name": "APP",
-            "color": "FFBC0D"
-          },
-          "secKill": false,
-          "giftType": 0,
-          "spuMainImg": "",
-          "auction": 0
-        }
-      ]
-    }
-  ]
-}
-```
-
-### 4.5.7 麦麦商城订单详情查询
-
-**描述：**  
->查询麦麦商城订单详细信息。  当用户想了解某个订单的详细信息（如支付积分/金额、订单状态等）时，可以使用此工具。
-
-**入参：**  
-
-| name | description |
-|------|-------------|
-| orderId | 订单id，必传，String 类型 |
-
-**响应内容：**
-
-示例：
-```json
-{
-    "success": true,
-    "code": 200,
-    "message": "请求成功",
-    "datetime": "2026-05-18 18:00:02",
-    "traceId": "83b47a170d749905972f3ee2406019c1",
-    "data": {
-        "orderId": "ECS1211037028709736448",
-        "orderType": 12,
-        "orderStatus": 40,
-        "orderStatusTitle": "已取消",
-        "orderStatusSubTitle": "您的订单由于超时未支付被取消",
-        "leftPaySecond": 0,
-        "shopId": 1,
-        "shopName": "麦麦商城",
-        "channel": "03",
-        "channelTag": "APP",
-        "goodsTotalPoints": "0",
-        "goodsTotalPrice": "0.01",
-        "realGoodsTotalPrice": "0.01",
-        "realGoodsTotalPoints": "0",
-        "realTotalAmount": "0.01",
-        "realTotalPoints": "0",
-        "goodsDesc": "卡券使用规则详见卡券展示页面",
-        "payId": "11976540481989423104",
-        "createTime": "2026-05-18 17:43:14",
-        "payTransactionId": "",
-        "payTime": "2026-05-18 17:43:14",
-        "totalAmount": 0,
-        "realPayAmount": 0,
-        "discountAmount": 0,
-        "totalPoints": "0",
-        "canInvoice": false,
-        "gift": 0,
-        "haveRefund": false,
-        "newGiftVersion": false,
-        "auction": 0,
-        "customerServicePhone": "4009-200-205",
-        "tag": {
-            "name": "APP",
-            "color": "FFBC0D"
-        },
-        "secKill": false,
-        "spuMainImg": "",
-        "pointShowName": "积分",
-        "allCount": 1,
-        "receivedCount": 0,
-        "giftProgressText": "赠送进度",
-        "goods": [
-            {
-                "type": 0,
-                "spuId": 465,
-                "skuId": 10863,
-                "spuName": "早餐权益卡",
-                "skuName": "30天",
-                "skuImage": "https://cdn-test.mcdchina.net/ecs/5edd9406f3e63446.jpg",
-                "count": 1,
-                "price": "0.01",
-                "points": "0",
-                "goodsLabels": []
-            }
-        ],
-        "activityGoods": []
-    }
-}
-```
----
-
-## 4.6 通用
-
-### 4.6.1 当前时间信息查询工具
-
-**描述：**
-> 获取当前时间信息 - 返回当前服务器的完整时间信息，包括： - 时间戳（毫秒级） - 格式化的日期时间 - 年月日信息 - 时区和UTC时间 在你不知道当前时间，并且用户需要指定日期查询活动日历的时候有用
-
-**入参：**
-> 无需入参
-
-**响应内容：**
-
-示例：
-``` json
-{
-  "success": true,
-  "code": 200,
-  "message": "请求成功",
-  "datetime": "2025-12-11 17:57:05",
-  "traceId": "7b7255e6b4682f35dc0b4df39ffcf02d",
-  "data": {
-    "timestamp": 1765447025424,
-    "datetime": "2025-12-11T17:57:05.424",
-    "formatted": "2025-12-11 17:57:05",
-    "date": "2025-12-11",
-    "year": 2025,
-    "month": 12,
-    "day": 11,
-    "dayOfWeek": "THURSDAY",
-    "timezone": "GMT+08:00",
-    "offset": "+08:00",
-    "utc": "2025-12-11T09:57:05.425Z"
-  }
-}
-```
----
-
-# 5. 版本日志
-
-|    Date    | Version | Description                        |
-|:----------:|:-------:|------------------------------------|
-| 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server              |
-| 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool，我们缩短了URL 以便于大家连接 |
-| 2026-02-13 |  1.0.2  | 增加了麦乐送点餐与积分兑换券场景的Tools             |
+# 4. 版本日志
+
+|    Date    | Version | Description                         |
+|:----------:|:-------:|-------------------------------------|
+| 2025-12-09 |  1.0.0  | 麦麦日历和麦麦省领券 MCP Server               |
+| 2026-01-23 |  1.0.1  | 增加了“餐品营养信息列表”Tool，我们缩短了 URL 以便于大家连接 |
+| 2026-02-13 |  1.0.2  | 增加了麦乐送点餐与积分兑换券场景的Tools              |
 | 2026-04-02 |  1.0.3  | 增加了到店取餐与团餐场景的Tools              |
-| 2026-05-21 |  1.0.4  | 增加了积分兑换实物、商城订单查询等 Tools，并支持得来速车道取餐场景下单及全部点餐场景预约功能 |
+| 2026-05-21 |  1.0.4  | 增加了积分兑换实物、商城订单查询等 Tools，并支持得来速车道取餐场景下单及全部点餐场景预约功能              |
+| 2026-06-16 |  1.0.5  | 支持更换套餐内商品组合、部分餐品特制              |
+| 2026-07-16 |  1.0.6  | 新增历史订单查询工具；支持展示餐品优惠价格；支持随单购买麦金卡和早餐卡              |
+| 2026-07-29 |  1.0.7  | 新增麦当劳派对、品鉴会等主题活动查询、预约与下单功能              |
+| 2026-08-27 |  1.0.8  | 新增积分抽奖工具：查看活动信息、抽奖、查我的奖品              |
+| 2026-09-10 |  1.0.9  | 新增取消订单、餐具选择、麦乐送订单备注功能；堂食外带场景下支持返回取餐柜二维码              |
 
 ---
 
-# 6. 注意事项：
+# 5. 注意事项：
 
 - 允许个人以非商业用途复制并使用本仓库中的示例配置、参数、JSON 或示例代码，并仅限用于实现与麦当劳MCP服务的连接与使用。
 
@@ -1604,4 +367,3 @@ Authorization: Bearer YOUR_MCP_TOKEN
 - 请妥善保管您的MCP Token，避免泄露或被他人使用。
 
 <p align="center">© 2026 McDonald’s. All Rights Reserved.</p>
-
