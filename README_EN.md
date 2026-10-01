@@ -72,7 +72,7 @@ Authorization: Bearer YOUR_MCP_TOKEN
 
 |    Client     |                                 Link                                 |
 |:-------------:|:--------------------------------------------------------------------:|
-|   Workbuddy   | https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Connector |
+|   WorkBuddy   | https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Connector |
 | Cherry Studio |            https://docs.cherry-ai.com/advanced-basic/mcp             |
 |    Cursor     |       https://cursor.com/cn/docs/context/mcp#protocol-support        |
 |     Kiro      |                      https://kiro.dev/docs/mcp/                      |
