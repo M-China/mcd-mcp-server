@@ -350,10 +350,77 @@ Authorization: Bearer YOUR_MCP_TOKEN
 | 2026-07-29 |  1.0.7  | 新增麦当劳派对、品鉴会等主题活动查询、预约与下单功能              |
 | 2026-08-27 |  1.0.8  | 新增积分抽奖工具：查看活动信息、抽奖、查我的奖品              |
 | 2026-09-10 |  1.0.9  | 新增取消订单、餐具选择、麦乐送订单备注功能；堂食外带场景下支持返回取餐柜二维码              |
+| 2026-10-23 |  1.1.0  | 新增常见问题（FAQ）章节，解答 order-list 分页、promotions 适用范围、code 字段映射、营养数据查询不稳定、套餐营养计算等高频问题            |
 
 ---
 
-# 5. 注意事项：
+# 5. 常见问题（FAQ）
+
+## Q1: `order-list` 只能返回最近10单，如何查询更多历史订单？
+
+**问题描述**：当前 `order-list` 工具仅返回最近10条订单，无分页参数。
+
+**解决方案**：
+- 如需完整历史订单，建议在客户端侧实现本地缓存机制
+- 可通过 `query-order` 工具按需查询特定订单详情
+- 未来版本将支持分页与日期范围查询（计划中）
+
+## Q2: `query-promotions` 工具如何使用？
+
+**适用场景**：仅企业团餐场景（beType=6）可用，不支持普通点餐。
+
+**使用限制**：
+- 需设置 `storeCode` 为企业团餐门店
+- 需设置 `beType=6`
+- 普通消费者点餐场景请使用其他优惠查询工具
+
+## Q3: `code` 和 `productCode` 字段映射问题
+
+**问题描述**：`query-meals` 返回的商品标识字段名为 `code`，但 `calculate-price` 需要 `productCode` 字段。
+
+**解决方案**：
+```javascript
+// 正确做法：将 code 值赋给 productCode
+const meal = meals.find(m => m.code === targetCode);
+const priceData = await calculatePrice({
+  items: [{
+    productCode: meal.code,  // 使用 code 的值
+    quantity: 1
+  }]
+});
+```
+
+**注意**：如果字段传错，接口不报错，会静默返回 `price: 0`。
+
+## Q4: `list-nutrition-foods` 返回不稳定怎么办？
+
+**问题描述**：首次调用正常，后续连续调用可能返回空内容。
+
+**解决方案**：
+- 客户端实现重试机制（建议间隔 500ms）
+- 本地缓存最近查询结果
+- 如持续失败，可能是服务端限流，请稍后重试
+
+## Q5: 如何获取套餐营养信息？
+
+**问题描述**：`list-nutrition-foods` 只覆盖单品，套餐匹配不上。
+
+**解决方案**：使用 `query-meal-detail` 获取套餐组成：
+```javascript
+// 1. 查询套餐详情
+const mealDetail = await queryMealDetail({ mealCode: 'xxx' });
+
+// 2. 计算套餐总营养
+let totalCalories = 0;
+for (const component of mealDetail.components) {
+  const nutrition = await listNutritionFoods({ foodCode: component.code });
+  totalCalories += nutrition.calories;
+}
+```
+
+---
+
+# 6. 注意事项：
 
 - 允许个人以非商业用途复制并使用本仓库中的示例配置、参数、JSON 或示例代码，并仅限用于实现与麦当劳MCP服务的连接与使用。
 
